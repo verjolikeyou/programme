@@ -9,6 +9,9 @@ from pathlib import Path
 from flask import Flask, render_template_string, request, redirect, url_for
 
 app = Flask(__name__)
+@app.route("/google6de0069661b79218.html")
+def verification_google():
+    return "google-site-verification: google6de0069661b79218.html"
 
 def dossier_application():
     """Dossier de l'application."""
