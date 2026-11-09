@@ -7,7 +7,6 @@ import sys
 import base64
 from pathlib import Path
 from flask import Flask, render_template_string, request, redirect, url_for
-from flask import send_from_directory
 
 
 
