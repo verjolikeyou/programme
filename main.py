@@ -44,6 +44,16 @@ BASE_TEMPLATE = """
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+
+    
+    <!-- ⬇️ AJOUTEZ VOTRE BALISE GOOGLE SEARCH CONSOLE ICI ⬇️ -->
+    <meta name="google-site-verification" content="VOTRE_CODE_DE_VALIDATION_ICI">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titre_page|default("Programme en 11 eme") }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+...
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ titre_page|default("Programme en 11 eme") }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
