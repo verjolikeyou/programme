@@ -9,11 +9,14 @@ from pathlib import Path
 from flask import Flask, render_template_string, request, redirect, url_for
 from flask import send_from_directory
 
+
+
+app = Flask(__name__)
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(app.root_path, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
-app = Flask(__name__)
+    
 @app.route("/google6de0069661b79218.html")
 def verification_google():
     return "google-site-verification: google6de0069661b79218.html"
