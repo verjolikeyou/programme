@@ -44,7 +44,7 @@ BASE_TEMPLATE = """
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="google-site-verification" content="VOTRE_VRAI_CODE">
+    <meta name="google-site-verification" content="uyEStLcFVZvMf9">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ titre_page|default("Programme en 11 eme") }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
