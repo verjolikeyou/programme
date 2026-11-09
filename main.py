@@ -47,6 +47,7 @@ BASE_TEMPLATE = """
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <meta name="google-site-verification" content="uyEStLcFVZvMf9">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ titre_page|default("Programme en 11 eme") }}</title>
