@@ -1,16 +1,83 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Programme 11eme</title>
-  
-  <!-- Lien obligatoire vers le manifest -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#000000">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme en 11 eme</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Comic Sans MS", "Comic Neue", "Fredoka", Arial, sans-serif;
+            background: linear-gradient(180deg, #E0F7FA 0%, #FFF9C4 60%, #FFE0B2 100%);
+            min-height: 100vh; color: #2D3748; display: flex; justify-content: center; align-items: flex-start; padding: 15px;
+        }
+        .container {
+            width: 100%; max-width: 760px; background: rgba(255, 255, 255, 0.96);
+            border: 3px solid #80DEEA; border-radius: 24px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); padding: 22px;
+        }
+        h1.titre-principal { color: #D90429; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 16px; }
+        .sous-titre-selection { display: block; font-size: 17px; color: #475569; font-weight: bold; margin-top: 4px; }
+        .cadre-menu { border: 3px solid #80DEEA; border-radius: 20px; padding: 16px; background: rgba(255, 255, 255, 0.5); }
+        .btn-bleu {
+            display: block; width: 100%; background-color: #4CC9F0; color: #ffffff; font-family: inherit; font-size: 16px;
+            font-weight: bold; text-align: center; border-radius: 14px; border: 3px solid #4361EE; border-bottom: 5px solid #3A0CA3;
+            padding: 10px 14px; margin-bottom: 10px; cursor: pointer;
+        }
+        .btn-bleu.selected { background-color: #7209B7 !important; border-color: #560FA0 !important; }
+        .btn-choose {
+            display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background-color: #FFF3BF;
+            border: 3px solid #FFD43B; border-bottom: 6px solid #FAB005; border-radius: 16px; padding: 10px 16px;
+            color: #2B8A3E; font-size: 19px; font-weight: bold; cursor: pointer; margin-top: 6px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Programme de 11ème</h1>
-  <p>Bienvenue dans votre application mobile.</p>
+    <div class="container">
+        <div class="cadre-menu">
+            <h1 class="titre-principal" id="titre-principal-choix">
+                Programme en 11 eme
+                <span class="sous-titre-selection" id="sous-titre-choix">Choisissez une matière</span>
+            </h1>
+
+            <button type="button" class="btn-bleu btn-option-choix" data-nom="Francais">Français</button>
+            <button type="button" class="btn-bleu btn-option-choix" data-nom="Mathematiques">Mathématiques</button>
+            <button type="button" class="btn-bleu btn-option-choix" data-nom="Cours">Cours</button>
+            <button type="button" class="btn-bleu btn-option-choix" data-nom="Dessin">Dessin</button>
+            <button type="button" class="btn-bleu btn-option-choix" data-nom="Anglais">Anglais</button>
+            <button type="button" class="btn-bleu btn-option-choix" data-nom="Methode boscher">Méthode boscher</button>
+            <button type="button" class="btn-bleu btn-option-choix" data-nom="Lecons de chose">Leçons de chose</button>
+
+            <button type="button" id="btn-valider-matiere" class="btn-choose">
+                <span>➜ Choose</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let matiereChoisie = "Francais";
+        const boutons = document.querySelectorAll('.btn-option-choix');
+        const sousTitre = document.getElementById('sous-titre-choix');
+        const btnValider = document.getElementById('btn-valider-matiere');
+
+        boutons[0].classList.add('selected');
+        sousTitre.textContent = boutons[0].textContent;
+
+        boutons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                boutons.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                matiereChoisie = btn.getAttribute('data-nom');
+                sousTitre.textContent = btn.textContent;
+            });
+        });
+
+        btnValider.addEventListener('click', () => {
+            alert("Matière sélectionnée : " + matiereChoisie + ". (Pour une application web complète, vous pouvez décliner chaque page en fichiers HTML distincts sur GitHub).");
+        });
+    </script>
 </body>
 </html>
