@@ -1,25 +1,18 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
+  "name": "Programme 11eme",
+  "short_name": "Programme",
+  "start_url": "./index.html",
   "display": "standalone",
-  "name": "programme25.onrender",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "programme25.onrender",
-  "start_url": "/",
-  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "description": "Application Programme 11eme",
   "icons": [
     {
-      "src": "https://programme25.onrender.com/favicon.ico",
-      "type": "image/x-icon",
-      "isSquare": false,
-      "isPng": false,
-      "isWebp": false,
-      "isJpg": false,
-      "width": 0,
-      "is512x512": false,
-      "is256x256": false,
-      "is192x192": false
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
     }
   ]
 }
