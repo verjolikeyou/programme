@@ -1,5 +1,5 @@
 {
-  "name": "Programme 11eme",
+  "name": "Programme",
   "short_name": "Programme",
   "start_url": "./index.html",
   "display": "standalone",
@@ -10,9 +10,16 @@
   "description": "Application Programme 11eme",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "https://via.placeholder.com/192x192.png?text=V11",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512.png?text=V11",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
