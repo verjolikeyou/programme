@@ -2,144 +2,1503 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programme 11ème</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4361EE">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4CC9F0">
+    <title>Programme en 11 eme</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: "Comic Sans MS", "Comic Neue", "Fredoka", Arial, sans-serif;
             background: linear-gradient(180deg, #E0F7FA 0%, #FFF9C4 60%, #FFE0B2 100%);
-            min-height: 100vh; color: #2D3748; display: flex; justify-content: center; align-items: flex-start; padding: 15px;
+            min-height: 100vh;
+            color: #2D3748;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 12px;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .container {
-            width: 100%; max-width: 760px; background: rgba(255, 255, 255, 0.96);
-            border: 3px solid #80DEEA; border-radius: 24px; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); padding: 22px;
-            position: relative; overflow: hidden;
+            width: 100%;
+            max-width: 760px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 3px solid #80DEEA;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            padding: 18px;
+            position: relative;
+            margin-bottom: 20px;
         }
-        h1.titre-principal { color: #D90429; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 16px; line-height: 1.35; }
-        .sous-titre-selection { display: block; font-size: 17px; color: #475569; font-weight: bold; margin-top: 4px; }
-        .badge-date { display: inline-block; background: #4361EE; color: #ffffff; font-size: 14px; font-weight: bold; padding: 6px 18px; border-radius: 12px; margin-bottom: 12px; text-align: center; }
-        .titre-lecon { color: #FF2E93; font-size: 19px; font-weight: 800; text-align: center; margin-bottom: 16px; }
-        .cadre-menu { border: 3px solid #80DEEA; border-radius: 20px; padding: 16px; background: rgba(255, 255, 255, 0.5); margin-bottom: 10px; }
-        
+        h1.titre-principal {
+            color: #D90429;
+            font-size: 23px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 14px;
+            line-height: 1.3;
+        }
+        .sous-titre-selection {
+            display: block;
+            font-size: 16px;
+            color: #475569;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        .badge-date {
+            display: inline-block;
+            background: #4361EE;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .titre-lecon {
+            color: #FF2E93;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+        .cadre-menu {
+            border: 3px solid #80DEEA;
+            border-radius: 20px;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+        }
         .btn-bleu {
-            display: block; width: 100%; background-color: #4CC9F0; color: #ffffff; font-family: inherit; font-size: 16px; font-weight: bold;
-            text-align: center; text-decoration: none; border-radius: 14px; border: 3px solid #4361EE; border-bottom: 5px solid #3A0CA3;
-            padding: 10px 14px; margin-bottom: 10px; cursor: pointer; transition: all 0.12s ease-in-out; user-select: none;
+            display: block;
+            width: 100%;
+            background-color: #4CC9F0;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 14px;
+            border: 3px solid #4361EE;
+            border-bottom: 5px solid #3A0CA3;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
         }
-        .btn-bleu.selected { background-color: #7209B7 !important; border-color: #560FA0 !important; }
+        .btn-bleu:active { border-bottom-width: 2px; transform: translateY(3px); }
+        .btn-bleu.selected {
+            background-color: #7209B7 !important;
+            border-color: #560FA0 !important;
+            border-bottom: 5px solid #3A0CA3 !important;
+        }
         .btn-corail {
-            display: block; width: 100%; background-color: #FF6B6B; color: #ffffff; font-family: inherit; font-size: 17px; font-weight: bold;
-            text-align: center; text-decoration: none; border-radius: 14px; border: 3px solid #E63946; border-bottom: 5px solid #B71C1C;
-            padding: 12px 14px; margin-bottom: 12px; cursor: pointer;
+            display: block;
+            width: 100%;
+            background-color: #FF6B6B;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 14px;
+            border: 3px solid #E63946;
+            border-bottom: 5px solid #B71C1C;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            text-decoration: none;
         }
+        .btn-corail:active { border-bottom-width: 2px; transform: translateY(3px); }
         .btn-rose {
-            display: block; width: 100%; background-color: #F0F2F5; color: #FF2E93; font-family: inherit; font-size: 15px; font-weight: 800;
-            text-align: center; text-decoration: none; border: 3px solid #FF2E93; border-bottom: 5px solid #C40058; border-radius: 14px;
-            padding: 10px 12px; margin-bottom: 10px; cursor: pointer;
+            display: block;
+            width: 100%;
+            background-color: #F8FAFC;
+            color: #FF2E93;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 800;
+            text-align: center;
+            border: 3px solid #FF2E93;
+            border-bottom: 5px solid #C40058;
+            border-radius: 14px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.1s ease;
         }
-        .btn-rose.selected { background-color: #FF2E93 !important; color: #ffffff !important; }
+        .btn-rose:active { border-bottom-width: 2px; transform: translateY(3px); }
+        .btn-rose.selected {
+            background-color: #FF2E93 !important;
+            color: #ffffff !important;
+            border-color: #C40058 !important;
+            border-bottom: 5px solid #85003A !important;
+        }
         .btn-choose {
-            display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background-color: #FFF3BF;
-            border: 3px solid #FFD43B; border-bottom: 6px solid #FAB005; border-radius: 16px; padding: 10px 16px; color: #2B8A3E;
-            font-size: 19px; font-weight: bold; cursor: pointer; margin-top: 6px; margin-bottom: 8px; text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            background-color: #FFF3BF;
+            border: 3px solid #FFD43B;
+            border-bottom: 6px solid #FAB005;
+            border-radius: 16px;
+            padding: 10px 16px;
+            color: #2B8A3E;
+            font-family: "Fredoka", Arial, sans-serif;
+            font-size: 19px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 6px;
+            margin-bottom: 8px;
         }
+        .btn-choose:active { border-bottom-width: 2px; transform: translateY(4px); }
         .btn-retour {
-            display: block; width: 100%; background-color: #6C757D; color: #ffffff; font-size: 15px; font-weight: bold;
-            text-decoration: none; border-radius: 12px; border: none; padding: 9px 18px; margin-top: 8px; text-align: center; cursor: pointer;
+            display: block;
+            width: 100%;
+            background-color: #6C757D;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 12px;
+            border: none;
+            padding: 10px 18px;
+            margin-top: 10px;
+            text-align: center;
+            cursor: pointer;
         }
-        .cadre-contenu { background: linear-gradient(135deg, #FFF6F6 0%, #F0F4FF 100%); border: 2px solid #80DEEA; border-radius: 18px; padding: 16px; margin-bottom: 16px; line-height: 1.8; font-size: 15px; }
-        .view { display: none; }
-        .view.active { display: block; }
+        .cadre-contenu {
+            background: linear-gradient(135deg, #FFF6F6 0%, #F0F4FF 100%);
+            border: 2px solid #80DEEA;
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 14px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .cahier-seyes {
+            background-color: #FFFFFF;
+            background-image: 
+                linear-gradient(to right, transparent 65px, #EF4444 65px, #EF4444 67px, transparent 67px),
+                linear-gradient(#E2E8F0 1px, transparent 1px),
+                linear-gradient(90deg, #E2E8F0 1px, transparent 1px);
+            background-size: 100% 100%, 22px 22px, 22px 22px;
+            border: 3px solid #80DEEA;
+            border-radius: 16px;
+            padding: 16px 16px 16px 76px;
+            margin-bottom: 14px;
+            overflow-x: auto;
+        }
+        .cahier-ligne-texte {
+            color: #1E3A8A;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+        table.table-calc {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        table.table-calc td {
+            background: #ffffff;
+            border: 2px solid #80DEEA;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            vertical-align: top;
+        }
+        .dessin-wrapper { display: flex; align-items: stretch; gap: 8px; }
+        .ruban-cote {
+            width: 40px;
+            background: #FFF0F5;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            font-size: 16px;
+            padding: 8px 0;
+        }
+        .dessin-contenu {
+            flex: 1;
+            background: #ffffff;
+            border: 3px solid #F97316;
+            border-radius: 16px;
+            padding: 14px;
+        }
+        .scroll-vertical {
+            max-height: 420px;
+            overflow-y: auto;
+            padding-right: 4px;
+            margin-bottom: 10px;
+        }
+        .loader-ring {
+            display: inline-block;
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 16px auto;
+        }
+        .loader-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            margin: 10px;
+            border: 7px solid #4361EE;
+            border-radius: 50%;
+            animation: ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #4361EE transparent transparent transparent;
+        }
+        .loader-ring div:nth-child(1) { animation-delay: -0.45s; }
+        .loader-ring div:nth-child(2) { animation-delay: -0.3s; }
+        .loader-ring div:nth-child(3) { animation-delay: -0.15s; }
+        @keyframes ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- VUE ACCUEIL -->
-        <div id="view-home" class="view active">
+
+<div class="container" id="app-root">
+    <!-- Le contenu de la SPA est généré dynamiquement ici -->
+</div>
+
+<script>
+// =============================================================================
+// DONNÉES COMPLÈTES DE LA MÉTHODE BOSCHER (30 LEÇONS)
+// =============================================================================
+const BOSCHER_LECONS = [
+    { code: "iu", label: "i - u" }, { code: "oa", label: "o - a" }, { code: "e", label: "e" },
+    { code: "p", label: "p" }, { code: "t", label: "t" }, { code: "r", label: "r" },
+    { code: "n", label: "n" }, { code: "m", label: "m" }, { code: "l", label: "l" },
+    { code: "c", label: "c" }, { code: "d", label: "d" }, { code: "v", label: "v" },
+    { code: "s", label: "s" }, { code: "b", label: "b" }, { code: "f", label: "f" },
+    { code: "j", label: "j" }, { code: "g", label: "g" }, { code: "ch", label: "ch" },
+    { code: "ou", label: "ou" }, { code: "on", label: "on" }, { code: "oi", label: "oi" },
+    { code: "an", label: "an" }, { code: "in", label: "in" }, { code: "br", label: "br" },
+    { code: "fr", label: "fr" }, { code: "bl", label: "bl" }, { code: "cl", label: "cl" },
+    { code: "ar", label: "ar" }, { code: "al", label: "al" }, { code: "en", label: "en" }
+];
+
+const BOSCHER_CONTENUS = {
+    iu: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">La rue à midi.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; letter-spacing:8px; text-align:center;">i &nbsp;&nbsp;&nbsp; u</p>
+        <div class="cadre-contenu" style="font-size:18px; font-weight:bold; color:#0F172A; line-height:2.4; letter-spacing:3px; text-align:center;">
+            i &nbsp; u &nbsp; i &nbsp; i &nbsp; u &nbsp; u &nbsp; i &nbsp; u<br>
+            u &nbsp; i &nbsp; u &nbsp; u &nbsp; i &nbsp; i &nbsp; u &nbsp; i
+        </div>
+        <p style="font-size:16px; font-weight:bold; color:#2563EB; margin-top:14px;">✍️ Écriture et chiffres :</p>
+        <div style="background:#F0F9FF; border:2px dashed #0284C7; border-radius:12px; padding:12px; font-size:15px; font-weight:bold; color:#0369A1; line-height:2.2; text-align:center;">
+            1 &nbsp;&nbsp; 2 &nbsp;&nbsp; 1 &nbsp;&nbsp; 2 &nbsp;&nbsp; 1 &nbsp;&nbsp; 2<br>
+            ✦ 1 hibou &nbsp;|&nbsp; ✦ 2 hirondelles &nbsp;|&nbsp; ✦ la lune
+        </div>
+    `,
+    oa: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">La fête de noël.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; letter-spacing:8px; text-align:center;">o &nbsp;&nbsp;&nbsp; a</p>
+        <div class="cadre-contenu" style="font-size:18px; font-weight:bold; color:#0F172A; line-height:2.4; letter-spacing:3px; text-align:center;">
+            u &nbsp; o &nbsp; a &nbsp; i &nbsp; o &nbsp; u &nbsp; a &nbsp; o<br>
+            a &nbsp; u &nbsp; o &nbsp; a &nbsp; i &nbsp; a &nbsp; o &nbsp; i
+        </div>
+        <p style="font-size:16px; font-weight:bold; color:#16A34A; margin-top:14px;">🫒 Vocabulaire :</p>
+        <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:15px; font-weight:bold; color:#15803D; line-height:2.2; text-align:center;">
+            ✦ 2 olives &nbsp;|&nbsp; ✦ 1 avion &nbsp;|&nbsp; ✦ 1 âne &nbsp;|&nbsp; des abricots<br>
+            1 + 1 = 2 &nbsp;&nbsp;|&nbsp;&nbsp; 2 - 1 = 1
+        </div>
+    `,
+    e: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le déjeuner de bébé.</p>
+        <p style="font-size:28px; font-weight:900; color:#E11D48; letter-spacing:6px; text-align:center;">e &nbsp; é &nbsp; è &nbsp; ê</p>
+        <div class="cadre-contenu" style="font-size:18px; font-weight:bold; color:#0F172A; line-height:2.4; letter-spacing:3px; text-align:center;">
+            è &nbsp; e &nbsp; é &nbsp; ê &nbsp; é &nbsp; è &nbsp; e &nbsp; ê<br>
+            é &nbsp; i &nbsp; ê &nbsp; a &nbsp; è &nbsp; o &nbsp; u &nbsp; e
+        </div>
+        <div style="background:#FFFBEB; border:2px dashed #D97706; border-radius:12px; padding:12px; font-size:14px; font-weight:bold; color:#B45309; line-height:2.2; text-align:center;">
+            ✦ 1 échelle — 1 bêche — des pêches — des cerises<br>
+            ✦ 1 + 1 + 1 = 3 &nbsp;|&nbsp; 3 - 1 = 2 &nbsp;|&nbsp; 3 - 2 = 1
+        </div>
+    `,
+    p: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">La poule appelle ses petits.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">p = p</p>
+        <div class="cadre-contenu" style="font-size:17px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            pi . pu . po . pa . pe . pé . pè . pê .<br>
+            <span style="color:#D81B60;">papa . pipe . épi . pie .</span>
+        </div>
+        <div style="background:#F5F3FF; border:2px dashed #7C3AED; border-radius:12px; padding:12px; font-size:14px; font-weight:bold; color:#5B21B6; line-height:2.2; text-align:center;">
+            ✦ pipe — papa — épi — pie — poussins<br>
+            ✦ 3 + 1 = 4 &nbsp;|&nbsp; 2 + 2 = 4 &nbsp;|&nbsp; 4 - 1 = 3
+        </div>
+    `,
+    t: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Toto a été têtu.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">t = t</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            ta . té . ti . te . tu . tè . to . tê .<br>
+            toto . têtu . tomate . tuté . étui . tué .<br>
+            <span style="color:#2563EB;">toto a été têtu . papa a tapé toto .</span>
+        </div>
+    `,
+    r: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le chat ronronne devant le rôti.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">r = r</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            rê . ra . ré . ru . re . ri . rè . ro .<br>
+            ratière . tire . rare . rata . rature . rue .<br>
+            <span style="color:#059669;">papa a tiré, a raté, retirera .</span>
+        </div>
+    `,
+    n: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">René cherche des nids.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">n = n</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            ni . né . na . nè . no . nê . nu . ne .<br>
+            nina . une . tenu . puni . âne . une note .<br>
+            <span style="color:#2563EB;">rené a été retenu, papa a puni rené .</span>
+        </div>
+    `,
+    m: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Rémi et Maria partagent une pomme.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">m = m</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            mé . me . mu . mo . mê . mi . mè . ma .<br>
+            mimi . maria . ma mère . une mare . une mine .<br>
+            <span style="color:#C026D3;">rémi a patiné, rené a imité rémi .</span>
+        </div>
+    `,
+    l: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Émile soigne les lapins.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">l = l</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            lê . la . le . lé . li . lè . lo . lu .<br>
+            émile . la lune . le loto . la lame . la lime .<br>
+            <span style="color:#0284C7;">aline ôtera le rôti, la tomate, le pâté .</span>
+        </div>
+    `,
+    c: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le coq est le roi de la basse-cour.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">c = c</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            cu . co . ca .<br>
+            cocorico . l'écume . la capitale . la cane .<br>
+            <span style="color:#D81B60;">nicole a une petite capeline .</span>
+        </div>
+    `,
+    d: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Dédé est malade.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">d = d</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            da . dê . de . du . dè . do . di . dé .<br>
+            le dodo de dédé . le malade . le remède .<br>
+            <span style="color:#7C3AED;">madame dînera à midi de pâté, de rôti .</span>
+        </div>
+    `,
+    v: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">L'avion va vite.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">v = v</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            vo . vé . vê . va . vu . ve . vi . vè .<br>
+            la locomotive . le navire . la vérité .<br>
+            <span style="color:#0284C7;">la pie vole . éveline va vite à la cave .</span>
+        </div>
+    `,
+    s: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le semeur.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">s = s</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            su . sé . so . sê . si . sa . se . sè .<br>
+            simone . sème . sidonie . samedi . sève .<br>
+            <span style="color:#16A34A;">simone a sali sa cape . sa mère la lavera .</span>
+        </div>
+    `,
+    b: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">La cabane du sabotier.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">b = b</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            bè . ba . be . bo . bê . bi . bé . bu .<br>
+            la sabotière . la bête . la robe . le tube .<br>
+            <span style="color:#9333EA;">le père d'éva bâtira une cabane solide .</span>
+        </div>
+    `,
+    f: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Éva fera du café.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">f = f</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            fu . fé . fo . fe . fê . fi . fa . fè .<br>
+            cafetière . calorifère . carafe . farine .<br>
+            <span style="color:#D90429;">éva fera du café . sa mère fera du baba .</span>
+        </div>
+    `,
+    j: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">La joie au jour de l'an.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">j = j</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            jo . jé . ju . je . ja . jè . ji . jê .<br>
+            une jolie jupe . bébé cajole sa mère .<br>
+            <span style="color:#0284C7;">janine fera une jolie robe à simone .</span>
+        </div>
+    `,
+    g: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le marché aux légumes.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">g = g</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            ga . go . gu .<br>
+            le légume . la gare . la rigole . l'égalité .<br>
+            <span style="color:#2563EB;">la bête de jérôme galope vite .</span>
+        </div>
+    `,
+    ch: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le cheval tire la charrue.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">ch = ch</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            cha . chi . che . chê . cho . chè . chu .<br>
+            une bûche . de chêne . la galoche . la vache .<br>
+            <span style="color:#C026D3;">micheline a déchiré la poche de sa robe .</span>
+        </div>
+    `,
+    ou: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">La soupe aux choux.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">ou = ou</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            cou . sou . fou . chou . pou . vou . gou .<br>
+            la soupière . la bouche . le coude . le bijou .<br>
+            <span style="color:#059669;">jules coupe un chou, le coucou avale une mouche .</span>
+        </div>
+    `,
+    on: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Léon achète du bonbon.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">on = on</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            bon . mon . ton . son . ron . lon . gon .<br>
+            confiture . bâton . coton . conte . galon . ronde .<br>
+            <span style="color:#D90429;">léon a du bonbon . écoute le son du violon .</span>
+        </div>
+    `,
+    oi: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Toinon garde ses oies.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">oi = oi</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            voi . toi . boi . moi . foi . poi . noi . joi .<br>
+            voilà . une voiture . une étoile . une poire .<br>
+            <span style="color:#0284C7;">toinon achètera un coupon de toile à la foire .</span>
+        </div>
+    `,
+    an: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Entrez dans la danse.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">an = an</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            pan . gan . man . chan . ban . can . dan .<br>
+            une chanson . une mandarine . maman . ma tante .<br>
+            <span style="color:#D81B60;">jean dansera dimanche à la fête du canton .</span>
+        </div>
+    `,
+    in: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le poteau indicateur.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">in = in</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            vin . lin . pin . fin . tin . rin . min . din .<br>
+            le sapin . le chemin . le gamin . le marin . malin .<br>
+            <span style="color:#2563EB;">le pinson chante de bon matin à côté du moulin .</span>
+        </div>
+    `,
+    br: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin:6px 0; text-align:center;">la chèvre broute.</p>
+        <p style="font-size:30px; font-weight:900; color:#E11D48; margin:4px 0; text-align:center;">br . pr . dr . vr</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.2; text-align:center;">
+            lèvre . foudre . promenade . brûlure . profonde .<br>
+            poudre . lièvre . broche . bravoure . à droite .<br>
+            andré, prête-moi un livre, la chèvre broute le pré .
+        </div>
+    `,
+    fr: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin:6px 0; text-align:center;">sous la grêle.</p>
+        <p style="font-size:30px; font-weight:900; color:#E11D48; margin:4px 0; text-align:center;">fr . tr . cr . gr</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.2; text-align:center;">
+            la grêle . un abri . du chagrin . un litre . un fripon .<br>
+            la foudre gronde . mon frère écrira à notre tante .
+        </div>
+    `,
+    bl: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin:6px 0; text-align:center;">andré joue de la flûte.</p>
+        <p style="font-size:30px; font-weight:900; color:#E11D48; margin:4px 0; text-align:center;">bl . pl . fl</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.2; text-align:center;">
+            planche . meuble . établi . table . flûte . plume .<br>
+            la meunière moudra le blé . de la doublure blanche .
+        </div>
+    `,
+    cl: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin:6px 0; text-align:center;">la demeure de mon oncle.</p>
+        <p style="font-size:30px; font-weight:900; color:#E11D48; margin:4px 0; text-align:center;">cl . gl</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.2; text-align:center;">
+            clôture . églantine . boucle . ongle . réclamé .<br>
+            la clématite couvre la clôture du jardin .
+        </div>
+    `,
+    ar: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin:6px 0; text-align:center;">le fleuve déborde.</p>
+        <p style="font-size:30px; font-weight:900; color:#E11D48; margin:4px 0; text-align:center;">ar . or . ir . ur</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.2; text-align:center;">
+            jardin . arbre . porte . bordure . corne . ouvrir .<br>
+            le fleuve a débordé sur le jardin planté .
+        </div>
+    `,
+    al: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin:6px 0; text-align:center;">le maréchal ferre le cheval.</p>
+        <p style="font-size:30px; font-weight:900; color:#E11D48; margin:4px 0; text-align:center;">al . il . ol . ul</p>
+        <div class="cadre-contenu" style="font-size:15px; font-weight:bold; color:#0F172A; line-height:2.2; text-align:center;">
+            animal . bocal . calcul . avril . récolte . un bal .<br>
+            le maréchal coupe la corne du cheval .
+        </div>
+    `,
+    en: `
+        <span class="badge-date" style="background:#0284C7;">Méthode Boscher</span>
+        <p style="font-size:22px; font-weight:900; color:#D90429; margin-top:8px;">Le vent souffle.</p>
+        <p style="font-size:32px; font-weight:900; color:#E11D48; text-align:center;">en = en</p>
+        <div class="cadre-contenu" style="font-size:16px; font-weight:bold; color:#0F172A; line-height:2.4; text-align:center;">
+            le vent . la dent . un serpent . la gentiane .<br>
+            <span style="color:#2563EB;">le vent souffle fort sur le grand sapin .</span>
+        </div>
+    `
+};
+
+// =============================================================================
+// ROUTEUR SPA INTERNE
+// =============================================================================
+let historique = ['home'];
+
+function nav(screenId, pushHistory = true) {
+    if (pushHistory) historique.push(screenId);
+    render(screenId);
+}
+
+function retour() {
+    if (historique.length > 1) {
+        historique.pop();
+        const precedent = historique[historique.length - 1];
+        render(precedent);
+    } else {
+        render('home');
+    }
+}
+
+function animerChargement(matiere, ecranCible) {
+    const root = document.getElementById('app-root');
+    root.innerHTML = `
+        <div style="text-align:center; padding: 25px 10px;">
+            <h1 class="titre-principal">Programme en 11 eme</h1>
+            <div style="font-size:24px; font-weight:bold; color:#2B8A3E; margin:12px 0;">
+                ${matiere}
+            </div>
+            <div class="loader-ring">
+                <div></div><div></div><div></div><div></div>
+            </div>
+            <div style="font-size:19px; font-weight:bold; color:#3A0CA3; margin-top:14px;">
+                Chargement en cours...
+            </div>
+        </div>
+    `;
+    setTimeout(() => {
+        nav(ecranCible);
+    }, 1200);
+}
+
+// =============================================================================
+// MOTEUR D'AFFICHAGE DES ÉCRANS
+// =============================================================================
+function render(screen) {
+    const root = document.getElementById('app-root');
+
+    // --- ACCUEIL ---
+    if (screen === 'home') {
+        root.innerHTML = `
             <div class="cadre-menu">
-                <h1 class="titre-principal">
+                <h1 class="titre-principal" id="titre-choix">
                     Programme en 11 eme
-                    <span class="sous-titre-selection" id="home-subtitle">Français</span>
+                    <span class="sous-titre-selection" id="sous-titre-choix">Français</span>
                 </h1>
-                <button type="button" class="btn-bleu btn-home-opt selected" onclick="selectHomeOpt(this, 'Francais')">Français</button>
-                <button type="button" class="btn-bleu btn-home-opt" onclick="selectHomeOpt(this, 'Mathematiques')">Mathématiques</button>
-                <button type="button" class="btn-bleu btn-home-opt" onclick="selectHomeOpt(this, 'Cours')">Cours</button>
-                <button type="button" class="btn-bleu btn-home-opt" onclick="selectHomeOpt(this, 'Dessin')">Dessin</button>
-                <button type="button" class="btn-bleu btn-home-opt" onclick="selectHomeOpt(this, 'Anglais')">Anglais</button>
-                <button type="button" class="btn-bleu btn-home-opt" onclick="selectHomeOpt(this, 'Methode boscher')">Méthode boscher</button>
-                <button type="button" class="btn-bleu btn-home-opt" onclick="selectHomeOpt(this, 'Lecons de chose')">Leçons de chose</button>
-                <button type="button" class="btn-choose" onclick="goHomeSelected()">➜ Choose</button>
-            </div>
-        </div>
+                <button class="btn-bleu selected" onclick="choisirMatiere(this, 'Francais', 'Français')">Français</button>
+                <button class="btn-bleu" onclick="choisirMatiere(this, 'Mathematiques', 'Mathématiques')">Mathématiques</button>
+                <button class="btn-bleu" onclick="choisirMatiere(this, 'Cours', 'Cours')">Cours</button>
+                <button class="btn-bleu" onclick="choisirMatiere(this, 'Dessin', 'Dessin')">Dessin</button>
+                <button class="btn-bleu" onclick="choisirMatiere(this, 'Anglais', 'Anglais')">Anglais</button>
+                <button class="btn-bleu" onclick="choisirMatiere(this, 'Methode boscher', 'Méthode boscher')">Méthode boscher</button>
+                <button class="btn-bleu" onclick="choisirMatiere(this, 'Lecons de chose', 'Leçons de chose')">Leçons de chose</button>
 
-        <!-- VUE PROGRAMME -->
-        <div id="view-programme" class="view">
+                <button class="btn-choose" onclick="validerMatiere()">➜ Choose</button>
+            </div>
+        `;
+        window.matiereCourante = 'Francais';
+        window.matiereNom = 'Français';
+    }
+
+    // --- PROGRAMME (FRANÇAIS & MATHÉMATIQUES) ---
+    else if (screen === 'prog_Francais' || screen === 'prog_Mathematiques') {
+        const isFr = screen === 'prog_Francais';
+        const nom = isFr ? 'Français' : 'Mathématiques';
+        const leconsScreen = isFr ? 'fr_lecons' : 'math_lecons';
+        const exScreen = isFr ? 'fr_exercices' : 'math_exercices';
+
+        root.innerHTML = `
             <div class="cadre-menu" style="text-align:center;">
-                <h1 class="titre-principal" id="prog-title">Français<br><span class="sous-titre-selection">Leçons ou Exercices</span></h1>
-                <button class="btn-corail" onclick="goProgSection('lecons')">Leçons</button>
-                <button class="btn-corail" onclick="goProgSection('exercices')">Exercices</button>
-                <button class="btn-choose" onclick="showView('view-home')">← Retour au choix</button>
-            </div>
-        </div>
+                <h1 class="titre-principal">
+                    ${nom}<br>
+                    <span class="sous-titre-selection">Leçons ou Exercices</span>
+                </h1>
+                <div style="background:rgba(255,255,255,0.7); border-radius:14px; padding:12px; margin-bottom:18px; color:#222; font-size:17px; font-weight:bold; border:2px dashed #80DEEA;">
+                    Matière choisie : <span style="color:#0D47A1;">${nom}</span><br>
+                    <span style="font-size:14px; color:#555;">Sélectionnez Leçons ou Exercices.</span>
+                </div>
 
-        <!-- VUE CONTENU HORS LIGNE -->
-        <div id="view-content" class="view">
+                <button class="btn-corail" onclick="nav('${leconsScreen}')">Leçons</button>
+                <button class="btn-corail" onclick="nav('${exScreen}')">Exercices</button>
+                <button class="btn-choose" onclick="nav('home')">← Retour au choix</button>
+            </div>
+        `;
+    }
+
+    // --- MENU FRANÇAIS : LEÇONS ---
+    else if (screen === 'fr_lecons') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Français — Leçons<br><span class="sous-titre-selection">Choisissez une matière</span></h1>
+                <button class="btn-rose" onclick="nav('fr_lecon_orthographe')">Orthographe</button>
+                <button class="btn-rose" onclick="nav('fr_lecon_conjugaison')">Conjugaison</button>
+                <button class="btn-rose" onclick="nav('fr_lecon_grammaire')">Grammaire</button>
+                <button class="btn-rose" onclick="nav('fr_lecon_vocabulaire')">Vocabulaire</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+
+    // --- SOUS-MENU ORTHOGRAPHE LEÇONS ---
+    else if (screen === 'fr_lecon_orthographe') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Leçons d'Orthographe<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <button class="btn-rose" onclick="nav('fr_ortho_son_i')">Le son "i".</button>
+                <button class="btn-rose" onclick="nav('fr_ortho_son_e')">Le son "e".</button>
+                <button class="btn-rose" onclick="nav('fr_ortho_son_ar')">Le son ar</button>
+                <button class="btn-retour" onclick="retour()">← Revenir aux leçons</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_ortho_son_i') {
+        root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date" id="content-date">📅 Leçon 11ème</span>
-                <div class="titre-lecon" id="content-title">Titre</div>
+                <span class="badge-date">📅 Jeudi 17 Septembre 2026</span>
+                <div class="titre-lecon">📖 Orthographe : Le son « i »</div>
             </div>
-            <div class="cadre-contenu" id="content-body">
-                Contenu de la leçon...
+            <div class="cadre-contenu">
+                ✦ <b>i :</b> une amie — une épicerie — la pluie — la chemise<br>
+                ✦ <b>y :</b> <b style="color:#0D47A1;">Lyon</b> — le <b style="color:#0D47A1;">paddy</b> — la <b style="color:#0D47A1;">pyramide</b> — le <b style="color:#0D47A1;">pyjama</b><br>
+                ✦ <b>it :</b> le <b style="color:#D81B60;">lit</b> — un hab<b style="color:#D81B60;">it</b> — la nu<b style="color:#D81B60;">it</b> — le fru<b style="color:#D81B60;">it</b><br>
+                ✦ <b>ie :</b> la v<b style="color:#1B5E20;">ie</b> — Mar<b style="color:#1B5E20;">ie</b> — le paraplu<b style="color:#1B5E20;">ie</b><br>
+                ✦ <b>î :</b> une <b style="color:#E65100;">île</b> — une ab<b style="color:#E65100;">î</b>me<br>
+                ✦ <b>is :</b> la sour<b style="color:#6A1B9A;">is</b> — Par<b style="color:#6A1B9A;">is</b> — un tap<b style="color:#6A1B9A;">is</b><br>
+                ✦ <b>id :</b> le n<b style="color:#00838F;">id</b> &nbsp;|&nbsp; ✦ <b>iz :</b> le r<b style="color:#00838F;">iz</b><br>
+                ✦ <b>h (muet) :</b> un <b style="color:#C2185B;">hibou</b> — l'<b style="color:#C2185B;">hirondelle</b>
             </div>
-            <button class="btn-retour" onclick="showView(lastView || 'view-home')">← Retour</button>
-        </div>
-    </div>
+            <div style="background:#E1F5FE; border-radius:12px; padding:10px; font-size:14px; color:#0D47A1; font-weight:bold;">
+                💡 <b>Règle :</b> Le son « i » peut s'écrire simplement <i>i</i> ou <i>y</i>, mais aussi avec des lettres muettes finales comme <i>it, is, id, iz, ie</i> !
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons d'Orthographe</button>
+        `;
+    }
+    else if (screen === 'fr_ortho_son_e') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 12 Octobre 2026</span>
+                <div class="titre-lecon">📖 Orthographe : Le son « e »</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b>e :</b> l<b style="color:#0D47A1;">e</b> m<b style="color:#0D47A1;">e</b>nu — la capitain<b style="color:#0D47A1;">e</b> — p<b style="color:#0D47A1;">e</b>tit<b style="color:#0D47A1;">e</b> prom<b style="color:#0D47A1;">e</b>nad<b style="color:#0D47A1;">e</b><br>
+                ✦ <b>eu :</b> le j<b style="color:#D81B60;">eu</b> — nev<b style="color:#D81B60;">eu</b> — av<b style="color:#D81B60;">eu</b>gle — fl<b style="color:#D81B60;">eu</b>ve — je pl<b style="color:#D81B60;">eu</b>re<br>
+                ✦ <b>oeu :</b> un <b style="color:#1B5E20;">oeu</b>f — un b<b style="color:#1B5E20;">oeu</b>f — le n<b style="color:#1B5E20;">oeu</b>d — une s<b style="color:#1B5E20;">oeu</b>r — un c<b style="color:#1B5E20;">oeu</b>r<br>
+                ✦ <b>oei :</b> un <b style="color:#E65100;">oei</b>l
+            </div>
+            <div style="background:#FFF9C4; border-radius:12px; padding:10px; font-size:14px; color:#E65100; font-weight:bold;">
+                🔍 <b>Remarque :</b> Les graphies <i>eu</i> et <i>oeu</i> se prononcent de façon semblable comme dans le jeu, la soeur et le noeud !
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons d'Orthographe</button>
+        `;
+    }
+    else if (screen === 'fr_ortho_son_ar') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 27 Octobre 2026</span>
+                <div class="titre-lecon">📖 Le son « ar »</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b style="color:#D90429; font-size:17px;">ar :</b> &nbsp;&nbsp;la <b style="color:#0D47A1;">carte</b> — un <b style="color:#0D47A1;">armoire</b><br><br>
+                ✦ <b style="color:#16A34A; font-size:17px;">are :</b> &nbsp;&nbsp;la <b style="color:#047857;">mare</b> — un <b style="color:#047857;">arc</b> — la <b style="color:#047857;">tare</b>.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons d'Orthographe</button>
+        `;
+    }
 
-    <script>
-        let currentHomeMat = 'Francais';
-        let lastView = 'view-home';
+    // --- SOUS-MENU CONJUGAISON LEÇONS ---
+    else if (screen === 'fr_lecon_conjugaison') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Leçons de Conjugaison<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <button class="btn-rose" onclick="nav('fr_conj_singulier')">Les PPS au singulier</button>
+                <button class="btn-rose" onclick="nav('fr_conj_pluriel')">Les PPS aux pluriels</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_conj_singulier') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 21 Septembre 2026</span>
+                <div class="titre-lecon">📖 Les PPS au Singulier</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b style="color:#0D47A1;">Je</b> dessine une fleur.<br>
+                ✦ <b style="color:#0D47A1;">Tu</b> marches doucement.<br>
+                <div style="background:#E8F5E9; border-left:4px solid #2E7D32; padding:6px; margin:8px 0; font-size:14px;">
+                    ➔ <b>Je</b> et <b>Tu</b> sont employés pour une seule personne.
+                </div>
+                ✦ Allah est gentil. ➔ <b style="color:#D81B60;">Il</b> est gentil.<br>
+                ✦ Fatou prend le livre. ➔ <b style="color:#D81B60;">Elle</b> prend le livre.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+        `;
+    }
+    else if (screen === 'fr_conj_pluriel') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mercredi 14 Octobre 2026</span>
+                <div class="titre-lecon">📖 Les PPS aux Pluriels</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b style="color:#0D47A1;">Nous</b> (1ère personne du pluriel)<br>
+                ✦ <b style="color:#0D47A1;">Vous</b> (2ème personne du pluriel)<br>
+                ✦ <b style="color:#D81B60;">Ils</b> (masculin pluriel)<br>
+                ✦ <b style="color:#D81B60;">Elles</b> (féminin pluriel)
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+        `;
+    }
 
-        function selectHomeOpt(btn, mat) {
-            document.querySelectorAll('.btn-home-opt').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            currentHomeMat = mat;
-            document.getElementById('home-subtitle').textContent = btn.textContent;
-        }
+    // --- SOUS-MENU GRAMMAIRE LEÇONS ---
+    else if (screen === 'fr_lecon_grammaire') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Leçons de Grammaire<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <button class="btn-rose" onclick="nav('fr_gramm_26_lettres')">Les 26 lettres de l'alphabet</button>
+                <button class="btn-rose" onclick="nav('fr_gramm_syllabes')">Les syllabes</button>
+                <button class="btn-rose" onclick="nav('fr_gramm_noms')">Les noms</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_gramm_26_lettres') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 21 Septembre 2026</span>
+                <div class="titre-lecon">📖 Les 26 Lettres de l'Alphabet</div>
+            </div>
+            <div class="cadre-contenu" style="text-align:center; font-size:16px;">
+                <b style="color:#0D47A1;">a - b - c - d - e - f - g - h - i - j - k - l - m<br>n - o - p - q - r - s - t - u - v - w - x - y - z</b>
+            </div>
+            <div style="background:#E1F5FE; border-radius:12px; padding:12px; font-size:14px; line-height:2;">
+                ✦ Dans l'alphabet français, il y a <b style="color:#D81B60;">26 lettres</b>.<br>
+                ✦ <b style="color:#1B5E20;">6 voyelles :</b> a - e - i - o - u - y.<br>
+                ✦ <b style="color:#0D47A1;">20 consonnes.</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+        `;
+    }
+    else if (screen === 'fr_gramm_syllabes') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mercredi 07 Octobre 2026</span>
+                <div class="titre-lecon">📖 Les Syllabes</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ Une <b>syllabe</b> est une partie de mot que l'on prononce d'un seul coup de voix.
+            </div>
+            <div style="background:#FFF9C4; border-radius:12px; padding:12px; font-size:15px; line-height:2.2; font-weight:bold; color:#3E2723;">
+                • pa - pa = <b>2 syllabes</b><br>
+                • mou - le = <b>2 syllabes</b><br>
+                • vil - la - ge = <b>3 syllabes</b><br>
+                • pro - me - na - de = <b>4 syllabes</b><br>
+                • lo - co - mo - ti - ve = <b>5 syllabes</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+        `;
+    }
+    else if (screen === 'fr_gramm_noms') {
+        root.innerHTML = `
+            <h1 class="titre-principal">📖 Grammaire : Les Noms</h1>
+            <div class="cadre-contenu">
+                Le nom est un mot qui sert à nommer une <b>personne</b>, un <b>animal</b> ou une <b>chose</b>.
+            </div>
+            <div style="background:#E8F5E9; border-radius:12px; padding:12px; font-size:14px; line-height:2.2;">
+                ✦ <b style="color:#0D47A1;">Personnes :</b> Marius, Claudette, maman.<br>
+                ✦ <b style="color:#2E7D32;">Animaux :</b> le chat, la crevette, le mouton.<br>
+                ✦ <b style="color:#D81B60;">Choses :</b> le stylo, la gourde, le tableau.
+            </div>
+            <div style="margin-top:14px; background:#FEF2F2; border:2px solid #EF4444; border-radius:12px; padding:12px;">
+                <b>✨ Les noms propres :</b> commencent toujours par une <b>Majuscule</b> (ex: <i>Marius, Mandroseza, France</i>).
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+        `;
+    }
 
-        function showView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-        }
+    // --- SOUS-MENU VOCABULAIRE LEÇONS ---
+    else if (screen === 'fr_lecon_vocabulaire') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Leçons de Vocabulaire<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <button class="btn-rose" onclick="nav('fr_vocab_corps')">La propreté du corps</button>
+                <button class="btn-rose" onclick="nav('fr_vocab_environnement')">La propreté de l'environnement</button>
+                <button class="btn-rose" onclick="nav('fr_vocab_ecole')">L'école</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_vocab_corps') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Jeudi 01 Octobre 2026</span>
+                <div class="titre-lecon">📖 La propreté du corps</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ On doit se <b>brosser les dents</b> après chaque repas.<br>
+                ✦ On doit se <b>laver le visage</b> chaque matin.<br>
+                ✦ Couper ses <b>ongles</b> et laver les <b>pieds</b>.
+            </div>
+            <div style="background:#E1F5FE; border-radius:12px; padding:12px; font-size:14px; line-height:2.1; color:#01579B;">
+                <b>🚿 Comment prendre une douche ?</b><br>
+                1. L'eau et le savon.<br>
+                2. On savonne et on frotte bien.<br>
+                3. On s'essuie avec une serviette propre.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'fr_vocab_environnement') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 06 Octobre 2026</span>
+                <div class="titre-lecon">📖 La propreté de l'environnement</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ On <b>ne jette pas par terre</b> les ordures.<br>
+                ✦ L'élève est <b>responsable</b> de la propreté de sa classe et de sa cour.<br>
+                ✦ Déposer tous les déchets dans la poubelle.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'fr_vocab_ecole') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 20 Octobre 2026</span>
+                <div class="titre-lecon">📖 L'école</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b>Dans l'école :</b> La directrice, les maîtresses, les écoliers.<br>
+                ✦ <b>Effets de classe :</b> Le tableau, la règle, la craie.<br>
+                ✦ <b>Fournitures :</b> Cahiers, stylos, livres, gomme, trousse, ciseaux.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
 
-        function goHomeSelected() {
-            if(currentHomeMat === 'Francais' || currentHomeMat === 'Mathematiques') {
-                document.getElementById('prog-title').innerHTML = currentHomeMat + '<br><span class="sous-titre-selection">Leçons ou Exercices</span>';
-                showView('view-programme');
-            } else {
-                showContent(currentHomeMat, '📅 11ème', 'Section ' + currentHomeMat + ' disponible immédiatement et 100% hors-ligne.');
-            }
-        }
+    // --- FRANÇAIS EXERCICES ---
+    else if (screen === 'fr_exercices') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Français — Exercices<br><span class="sous-titre-selection">Choisissez une section</span></h1>
+                <button class="btn-rose" onclick="nav('fr_ex_orthographe')">Orthographe</button>
+                <button class="btn-rose" onclick="nav('fr_ex_conjugaison')">Conjugaison</button>
+                <button class="btn-rose" onclick="nav('fr_ex_grammaire')">Grammaire</button>
+                <button class="btn-rose" onclick="nav('fr_ex_dictee')">Dictée préparée</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_ex_dictee') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Dictées Préparées</h1>
+                <button class="btn-rose" onclick="nav('fr_dictee_1')">1- 02 Octobre (Je porte un pyjama bleu...)</button>
+                <button class="btn-rose" onclick="nav('fr_dictee_2')">2- 09 Octobre (Je plante un pin...)</button>
+                <button class="btn-rose" onclick="nav('fr_dictee_3')">3- 16 Octobre (Il brosse seul ses dents...)</button>
+                <button class="btn-rose" onclick="nav('fr_dictee_4')">4- 22 Octobre (La propreté est bonne...)</button>
+                <button class="btn-rose" onclick="nav('fr_dictee_5')">5- 30 Octobre (Ils montrent la carte...)</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_dictee_1') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 02 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Dictée préparée</div>
+            </div>
+            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
+                ✦ <b style="color:#0D47A1;">Je porte un pyjama bleu.</b><br>
+                ✦ <b style="color:#0D47A1;">Tu manges le riz.</b><br>
+                ✦ <b style="color:#0D47A1;">Marius coupe ses ongles vendredi.</b><br>
+                ✦ <b style="color:#0D47A1;">Elle lave le visage de mon neveu.</b><br>
+                ✦ <b style="color:#0D47A1;">Il est à Paris.</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'fr_dictee_2') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 09 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Dictée préparée</div>
+            </div>
+            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
+                ✦ <b style="color:#0D47A1;">Je plante un pin.</b><br>
+                ✦ <b style="color:#0D47A1;">Elle adore la propreté.</b><br>
+                ✦ <b style="color:#0D47A1;">Tu portes un habit propre.</b><br>
+                ✦ <b style="color:#0D47A1;">Maman regarde le prix du riz.</b><br>
+                ✦ <b style="color:#0D47A1;">Il est sur l'île verte.</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'fr_dictee_3') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 16 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Dictée préparée</div>
+            </div>
+            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
+                ✦ <b style="color:#0D47A1;">Il brosse seul ses dents.</b><br>
+                ✦ <b style="color:#0D47A1;">Nous gardons la salle propre.</b><br>
+                ✦ <b style="color:#0D47A1;">Vous avez une jolie fleur dans le jardin.</b><br>
+                ✦ <b style="color:#0D47A1;">Je suis dans la cour.</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'fr_dictee_4') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 22 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Dictée préparée</div>
+            </div>
+            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
+                ✦ <b style="color:#0D47A1;">La propreté est bonne pour nous.</b><br>
+                ✦ <b style="color:#0D47A1;">Nous gardons la salle propre.</b><br>
+                ✦ <b style="color:#0D47A1;">Médor te mordra.</b><br>
+                ✦ <b style="color:#0D47A1;">Aline prépare le déjeuner.</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'fr_dictee_5') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 30 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Dictée préparée</div>
+            </div>
+            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
+                ✦ <b style="color:#0D47A1;">Ils montrent la carte de l'étudiant.</b><br>
+                ✦ <b style="color:#0D47A1;">Une écolière surveille les élèves.</b><br>
+                ✦ <b style="color:#0D47A1;">Nous cultivons un are de riz.</b><br>
+                ✦ <b style="color:#0D47A1;">La clématite couvre la clôture du jardin.</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
 
-        function goProgSection(type) {
-            lastView = 'view-programme';
-            showContent(currentHomeMat + ' — ' + type, '📅 Programme 11ème', 'Contenu des ' + type + ' de ' + currentHomeMat + ' chargé hors-ligne.');
-        }
+    // --- MATHÉMATIQUES : LEÇONS ---
+    else if (screen === 'math_lecons') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Mathématiques — Leçons<br><span class="sous-titre-selection">Choisissez une branche</span></h1>
+                <button class="btn-rose" onclick="nav('math_arith')">Arithmétique</button>
+                <button class="btn-rose" onclick="nav('math_geom')">Géométrie</button>
+                <button class="btn-rose" onclick="nav('math_metrique')">Système métrique</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'math_arith') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Arithmétique<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <button class="btn-rose" onclick="nav('math_comptage_10')">Comptage de 0 à 10</button>
+                <button class="btn-rose" onclick="nav('math_comptage_49')">Comptage de 0 à 49</button>
+                <button class="btn-rose" onclick="nav('math_add_sans')">Addition sans retenue</button>
+                <button class="btn-rose" onclick="nav('math_add_avec')">Addition avec retenue</button>
+                <button class="btn-rose" onclick="nav('math_comptage_119')">Comptage de 80 à 119</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'math_comptage_10') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 17 Septembre 2026</span>
+                <div class="titre-lecon">✨ Comptage de 1 en 1 de 0 à 10 ✨</div>
+            </div>
+            <div style="background-color:#E8F5E9; border:2px dashed #4CAF50; border-radius:14px; padding:16px; font-size:17px; font-weight:bold; color:#2E7D32; text-align:center;">
+                0 ➔ 1 ➔ 2 ➔ 3 ➔ 4 ➔ 5 ➔ 6 ➔ 7 ➔ 8 ➔ 9 ➔ 10
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_comptage_49') {
+        let ch49 = Array.from({length: 50}, (_, i) => i).join(' ➔ ');
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 28 Septembre 2026</span>
+                <div class="titre-lecon">✨ Comptage de 0 à 49 ✨</div>
+            </div>
+            <div style="background-color:#E8F5E9; border:2px dashed #4CAF50; border-radius:12px; padding:12px; line-height:2; font-size:13px; color:#2E7D32; text-align:center;">
+                ${ch49}
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_add_sans') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 05 Octobre 2026</span>
+                <div class="titre-lecon">Addition Sans Retenue</div>
+            </div>
+            <div style="background-color:#E8F5E9; border-left:5px solid #2E7D32; padding:12px; border-radius:8px; font-size:14px; margin-bottom:12px;">
+                <b>Règle :</b> Le signe de l'addition est le <b style="color:#1B5E20; font-size:16px;">+</b>
+            </div>
+            <div style="background-color:#B3E5FC; border-radius:12px; padding:14px; font-family:monospace; font-size:17px; font-weight:bold; color:#1A237E; text-align:center;">
+                5 + 3 = 8 &nbsp;|&nbsp; 13 + 5 = 18 &nbsp;|&nbsp; 31 + 16 = 47
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_add_avec') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 21 Octobre 2026</span>
+                <div class="titre-lecon">Addition Avec Retenue</div>
+            </div>
+            <div style="background-color:#E1BEE7; border-radius:12px; padding:14px; font-family:monospace; font-size:17px; font-weight:bold; color:#4A148C; text-align:center;">
+                26 + 37 = 63 &nbsp;|&nbsp; 15 + 26 = 41
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_comptage_119') {
+        let ch119 = Array.from({length: 40}, (_, i) => i + 80).join(' - ');
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 26 Octobre 2026</span>
+                <div class="titre-lecon">✨ Comptage de 80 à 119 ✨</div>
+            </div>
+            <div style="background-color:#FFFFFF; border:3px solid #80DEEA; border-radius:14px; padding:12px; line-height:2; font-size:13px; font-weight:bold; text-align:center;">
+                ${ch119}
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
 
-        function showContent(title, date, body) {
-            document.getElementById('content-title').textContent = title;
-            document.getElementById('content-date').textContent = date;
-            document.getElementById('content-body').innerHTML = body;
-            showView('view-content');
-        }
+    // --- GÉOMÉTRIE & SYSTÈME MÉTRIQUE LEÇONS ---
+    else if (screen === 'math_geom') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Géométrie</h1>
+                <button class="btn-rose" onclick="nav('math_geom_point')">Le point</button>
+                <button class="btn-rose" onclick="nav('math_geom_lignes')">Les 5 sortes de lignes</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'math_geom_point') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 17 Septembre 2026</span>
+                <div class="titre-lecon">Le Point</div>
+            </div>
+            <div style="background-color:#E8F5E9; border-left:5px solid #1B5E20; padding:14px; border-radius:8px; font-size:15px; color:#1B5E20; margin-bottom:15px;">
+                ✦ Un point est une figure géométrique sans dimension (on ne peut pas mesurer).
+            </div>
+            <p style="text-align:center; font-size:26px; color:#D81B60; font-weight:bold;">● Point A</p>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_geom_lignes') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 13 Octobre 2026</span>
+                <div class="titre-lecon">📖 Les 5 sortes de lignes</div>
+            </div>
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1. Ligne droite horizontale</div>
+                <svg width="240" height="25"><line x1="10" y1="12" x2="220" y2="12" stroke="#0284C7" stroke-width="3"/></svg>
+                <div class="cahier-ligne-texte" style="margin-top:10px;">2. Ligne droite verticale</div>
+                <svg width="240" height="50"><line x1="50" y1="5" x2="50" y2="45" stroke="#0284C7" stroke-width="3"/></svg>
+                <div class="cahier-ligne-texte" style="margin-top:10px;">3. Ligne droite oblique</div>
+                <svg width="240" height="40"><line x1="10" y1="35" x2="160" y2="10" stroke="#0284C7" stroke-width="3"/></svg>
+                <div class="cahier-ligne-texte" style="margin-top:10px;">4. Ligne brisée</div>
+                <svg width="240" height="35"><polyline points="10,25 40,8 70,25 100,8 130,25" fill="none" stroke="#0284C7" stroke-width="3"/></svg>
+                <div class="cahier-ligne-texte" style="margin-top:10px;">5. Ligne courbe</div>
+                <svg width="240" height="35"><path d="M 10 20 Q 50 0 90 20 T 170 20" fill="none" stroke="#0284C7" stroke-width="3"/></svg>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_metrique') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Système métrique</h1>
+                <button class="btn-rose" onclick="nav('math_met_regle')">Mesurer avec une règle</button>
+                <button class="btn-rose" onclick="nav('math_met_segment')">Mesurer un segment</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'math_met_regle') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 23 Septembre 2026</span>
+                <div class="titre-lecon">📏 Mesurer avec une règle graduée</div>
+            </div>
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1. Poser le 0 de la règle sur le point de départ.</div>
+                <div class="cahier-ligne-texte">2. Marquer la graduation voulue (ex: 4 cm) et relier.</div>
+                <svg width="280" height="80">
+                    <line x1="10" y1="40" x2="160" y2="40" stroke="#DC2626" stroke-width="3"/>
+                    <line x1="10" y1="30" x2="10" y2="50" stroke="#DC2626" stroke-width="3"/>
+                    <line x1="160" y1="30" x2="160" y2="50" stroke="#DC2626" stroke-width="3"/>
+                    <text x="75" y="65" font-size="14" font-weight="bold" fill="#DC2626">4 cm</text>
+                </svg>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_met_segment') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 08 Octobre 2026</span>
+                <div class="titre-lecon">📖 Mesurer un segment</div>
+            </div>
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">✦ Le segment [AB] : début et fin limités :</div>
+                <svg width="260" height="40">
+                    <line x1="20" y1="20" x2="180" y2="20" stroke="#0F172A" stroke-width="3"/>
+                    <line x1="20" y1="10" x2="20" y2="30" stroke="#0F172A" stroke-width="3"/>
+                    <line x1="180" y1="10" x2="180" y2="30" stroke="#0F172A" stroke-width="3"/>
+                    <text x="6" y="24" font-size="13" font-weight="bold" fill="#DC2626">A</text>
+                    <text x="188" y="24" font-size="13" font-weight="bold" fill="#DC2626">B</text>
+                </svg>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
 
-        // Activation du mode hors-ligne dans le navigateur
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
-    </script>
+    // --- COURS (POSE ET EFFECTUE & DÉCOMPOSE) ---
+    else if (screen === 'screen_cours') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Cours<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <button class="btn-rose" onclick="nav('cours_pose')">1- Pose et effectue</button>
+                <button class="btn-rose" onclick="nav('cours_decompose')">1- Décompose</button>
+                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
+            </div>
+        `;
+    }
+    else if (screen === 'cours_pose') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 07 Octobre 2026</span>
+                <div class="titre-lecon">📖 Arithmétique : 1- Pose et effectue</div>
+            </div>
+            <table class="table-calc">
+                <tr>
+                    <td><span style="color:#0D47A1;">15 + 13 = 28</span><br><br>1 5<br>+ 1 3<br>-----<br>2 8</td>
+                    <td><span style="color:#0D47A1;">36 + 32 = 68</span><br><br>3 6<br>+ 3 2<br>-----<br>6 8</td>
+                    <td><span style="color:#0D47A1;">40 + 55 = 95</span><br><br>4 0<br>+ 5 5<br>-----<br>9 5</td>
+                </tr>
+            </table>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Cours</button>
+        `;
+    }
+    else if (screen === 'cours_decompose') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 14 Octobre 2026</span>
+                <div class="titre-lecon">📖 1- Décompose & Compose</div>
+            </div>
+            <div style="background:#FFFFFF; border:2px solid #80DEEA; border-radius:12px; padding:12px; font-size:14px; font-weight:bold; line-height:2;">
+                ✦ 24 = <b style="color:#D81B60;">2 d 4 u</b><br>
+                ✦ 15 = <b style="color:#D81B60;">1 d 5 u</b><br>
+                ✦ 56 = <b style="color:#D81B60;">5 d 6 u</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux Cours</button>
+        `;
+    }
+
+    // --- ATELIER DESSIN ---
+    else if (screen === 'screen_dessin') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Atelier Dessin<br><span class="sous-titre-selection">Choisissez un atelier</span></h1>
+                <button class="btn-rose" onclick="nav('dessin_carotte')">1- Carotte 🥕</button>
+                <button class="btn-rose" onclick="nav('dessin_cartable')">2- Cartable Mignon 🎒</button>
+                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
+            </div>
+        `;
+    }
+    else if (screen === 'dessin_carotte') {
+        root.innerHTML = `
+            <div style="text-align:center; margin-bottom:10px;">
+                <span class="badge-date" style="background:#EA580C;">🥕 Comment dessiner une Carotte</span>
+            </div>
+            <div class="dessin-wrapper">
+                <div class="ruban-cote"><span>✏️</span><span>⭐</span><span>🎨</span></div>
+                <div class="dessin-contenu">
+                    <div style="text-align:center; margin-bottom:12px;">
+                        <svg width="100" height="150" viewBox="0 0 100 150">
+                            <!-- Fanes -->
+                            <path d="M50 35 C40 10, 20 20, 48 35 C50 10, 60 10, 52 35 C65 15, 80 20, 54 35" fill="#22C55E" stroke="#15803D" stroke-width="2"/>
+                            <!-- Corps -->
+                            <path d="M35 35 Q50 32 65 35 Q60 120 50 145 Q40 120 35 35 Z" fill="#F97316" stroke="#C2410C" stroke-width="3"/>
+                            <!-- Traits -->
+                            <line x1="42" y1="55" x2="58" y2="55" stroke="#EA580C" stroke-width="2"/>
+                            <line x1="44" y1="80" x2="56" y2="80" stroke="#EA580C" stroke-width="2"/>
+                            <line x1="47" y1="105" x2="53" y2="105" stroke="#EA580C" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <p style="font-size:15px; font-weight:bold; color:#C2410C;">• Étape 1 : Tracer la forme de cône pointu vers le bas.</p>
+                    <p style="font-size:15px; font-weight:bold; color:#C2410C;">• Étape 2 : Ajouter des petits traits horizontaux.</p>
+                    <p style="font-size:15px; font-weight:bold; color:#15803D;">• Étape 3 : Dessiner les feuilles vertes au sommet.</p>
+                </div>
+                <div class="ruban-cote"><span>🌸</span><span>🥕</span><span>⭐</span></div>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir au Dessin</button>
+        `;
+    }
+    else if (screen === 'dessin_cartable') {
+        root.innerHTML = `
+            <div style="text-align:center; margin-bottom:10px;">
+                <span class="badge-date" style="background:#FF2E93;">🎒 Dessiner un Cartable Mignon</span>
+            </div>
+            <div class="dessin-wrapper">
+                <div class="ruban-cote"><span>🎒</span><span>⭐</span></div>
+                <div class="dessin-contenu" style="border-color:#FF2E93;">
+                    <div style="text-align:center; margin-bottom:10px;">
+                        <svg width="120" height="130" viewBox="0 0 120 130">
+                            <!-- Poignée -->
+                            <path d="M45 25 Q60 10 75 25" fill="none" stroke="#DB2777" stroke-width="4"/>
+                            <!-- Corps sac -->
+                            <rect x="25" y="25" width="70" height="85" rx="14" fill="#F472B6" stroke="#BE185D" stroke-width="3"/>
+                            <!-- Poche avant -->
+                            <rect x="35" y="65" width="50" height="40" rx="8" fill="#FBCFE8" stroke="#BE185D" stroke-width="2"/>
+                            <!-- Yeux kawaii -->
+                            <circle cx="50" cy="80" r="3" fill="#111827"/>
+                            <circle cx="70" cy="80" r="3" fill="#111827"/>
+                            <path d="M57 88 Q60 92 63 88" fill="none" stroke="#111827" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div style="font-size:14px; line-height:1.8;">
+                        <b>Step 1 :</b> Le grand rectangle aux coins arrondis.<br>
+                        <b>Step 2 :</b> Le rabat et la fermeture éclair.<br>
+                        <b>Step 3 :</b> Les poches sur les côtés et les bretelles.<br>
+                        <b>Step 4 :</b> Ajouter un visage mignon et colorier !
+                    </div>
+                </div>
+                <div class="ruban-cote"><span>💖</span><span>🎨</span></div>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir au Dessin</button>
+        `;
+    }
+
+    // --- MÉTHODE BOSCHER ---
+    else if (screen === 'screen_boscher') {
+        let boutons = BOSCHER_LECONS.map(l => 
+            `<button class="btn-rose" onclick="afficherBoscher('${l.code}')">${l.label}</button>`
+        ).join('');
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Méthode Boscher<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <div class="scroll-vertical">${boutons}</div>
+                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
+            </div>
+        `;
+    }
+    else if (screen.startsWith('boscher_')) {
+        const code = screen.replace('boscher_', '');
+        const contenu = BOSCHER_CONTENUS[code] || '<p>Leçon en cours de préparation.</p>';
+        root.innerHTML = `
+            <div style="text-align:center;">
+                ${contenu}
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir à la Méthode Boscher</button>
+        `;
+    }
+
+    // --- LEÇONS DE CHOSE ---
+    else if (screen === 'screen_chose') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Leçons de chose<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
+                <button class="btn-rose" onclick="nav('chose_nagent')">LES ANIMAUX QUI NAGENT</button>
+                <button class="btn-rose" onclick="nav('chose_volent')">LES ANIMAUX QUI VOLENT</button>
+                <button class="btn-rose" onclick="nav('chose_marchent')">LES ANIMAUX QUI MARCHENT</button>
+                <button class="btn-rose" onclick="nav('chose_rampent')">LES ANIMAUX QUI RAMPENT</button>
+                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
+            </div>
+        `;
+    }
+    else if (screen === 'chose_nagent') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date" style="background:#0284C7;">📅 01 Octobre 2026</span>
+                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI NAGENT</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b>Définition :</b> Se déplacent dans l'eau grâce à leurs <b>nageoires</b> ou <b>pattes palmées</b>.<br>
+                ✦ <b>Exemples :</b> Le poisson, le dauphin, le requin, la baleine, le canard, le phoque.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'chose_volent') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date" style="background:#0284C7;">📅 03 Octobre 2026</span>
+                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI VOLENT</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b>Définition :</b> Ont des <b>ailes</b> pour se déplacer dans l'air.<br>
+                ✦ <b>Exemples :</b> Le pigeon, l'aigle, l'hirondelle, le papillon, l'abeille, la chauve-souris.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'chose_marchent') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date" style="background:#0284C7;">📅 01 Octobre 2026</span>
+                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI MARCHENT</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b>Définition :</b> Se déplacent sur la terre ferme à l'aide de leurs <b>pattes</b>.<br>
+                ✦ <b>Quadrupèdes (4 pattes) :</b> Le chat, le lion, le cheval, l'éléphant.<br>
+                ✦ <b>Bipèdes (2 pattes) :</b> L'autruche, la poule, le canard.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'chose_rampent') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date" style="background:#0284C7;">📅 10 Octobre 2026</span>
+                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI RAMPENT</div>
+            </div>
+            <div class="cadre-contenu">
+                ✦ <b>Définition :</b> N'ont pas de pattes ou de très petites pattes, et utilisent leur <b>ventre</b> pour avancer (la reptation).<br>
+                ✦ <b>Exemples :</b> Le serpent, le ver de terre, l'escargot, le lézard, la limace.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+
+    // --- ANGLAIS ---
+    else if (screen === 'screen_anglais') {
+        root.innerHTML = `
+            <h1 class="titre-principal">Anglais — 11ème</h1>
+            <div class="cadre-contenu" style="text-align:center;">
+                <p style="font-size:18px; font-weight:bold; color:#0D47A1;">🇬🇧 Welcome to English Class!</p>
+                <p style="margin-top:10px; font-size:15px; line-height:2;">
+                    ✦ <b>Greetings :</b> Good morning ! — Hello ! — Goodbye !<br>
+                    ✦ <b>Colors :</b> Red, Blue, Green, Yellow, Orange, Pink.<br>
+                    ✦ <b>Numbers :</b> One (1), Two (2), Three (3), Four (4), Five (5).
+                </p>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
+        `;
+    }
+}
+
+// =============================================================================
+// GESTION DU CHOIX INITIAL ET DISPATCH
+// =============================================================================
+function choisirMatiere(btn, code, nom) {
+    document.querySelectorAll('.btn-bleu').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('sous-titre-choix').textContent = nom;
+    window.matiereCourante = code;
+    window.matiereNom = nom;
+}
+
+function validerMatiere() {
+    const mat = window.matiereCourante || 'Francais';
+    const nom = window.matiereNom || 'Français';
+
+    if (mat === 'Dessin') animerChargement(nom, 'screen_dessin');
+    else if (mat === 'Cours') animerChargement(nom, 'screen_cours');
+    else if (mat === 'Methode boscher') animerChargement(nom, 'screen_boscher');
+    else if (mat === 'Lecons de chose') animerChargement(nom, 'screen_chose');
+    else if (mat === 'Anglais') animerChargement(nom, 'screen_anglais');
+    else animerChargement(nom, 'prog_' + mat);
+}
+
+function afficherBoscher(code) {
+    nav('boscher_' + code);
+}
+
+// Initialisation
+render('home');
+
+// Enregistrement du Service Worker pour 100% Hors-ligne
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+}
+</script>
+
 </body>
 </html>
