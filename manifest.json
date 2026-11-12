@@ -1,13 +1,16 @@
 {
+  "id": "com.programme.onzieme.app",
   "name": "Programme en 11eme",
-  "short_name": "11eme",
-  "description": "Application éducative pour la 11ème avec leçons, méthode Boscher et exercices.",
+  "short_name": "11ème",
+  "description": "Application éducative pour la 11ème : Français, Mathématiques, Boscher, Sciences et Dessin.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
+  "orientation": "portrait-primary",
   "background_color": "#E0F7FA",
   "theme_color": "#4361EE",
-  "orientation": "portrait",
+  "categories": ["education", "kids", "books"],
   "icons": [
     {
       "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
@@ -32,6 +35,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Accueil 11ème"
+    },
+    {
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Programme d'études"
     }
   ]
 }
