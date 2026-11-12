@@ -1,4 +1,11 @@
 {
+  "name": "Programme en 11ème",
+  "short_name": "11ème",
+  "description": "Application éducative complète pour le programme scolaire de 11ème.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#E0F7FA",
+  "theme_color": "#4361EE",
   "icons": [
     {
       "src": "launchericon-192x192.png",
