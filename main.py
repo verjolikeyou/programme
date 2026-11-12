@@ -1,14 +1,10 @@
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 import os
 import sys
 import base64
 from pathlib import Path
-from flask import Flask, render_template_string, request, redirect, url_for
-
-
+from flask import Flask, render_template_string, request, redirect, url_for, send_from_directory
 
 app = Flask(__name__)
 
@@ -120,7 +116,7 @@ BASE_TEMPLATE = """
             margin-bottom: 16px;
         }
 
-        /* Cadre interne avec coins arrondis et bordure turquoise comme PySide6 */
+        /* Cadre interne avec coins arrondis et bordure turquoise */
         .cadre-menu {
             border: 3px solid #80DEEA;
             border-radius: 20px;
@@ -164,7 +160,7 @@ BASE_TEMPLATE = """
             transform: translateY(3px);
         }
 
-        /* Boutons 3D Rouges / Corail (Programme) */
+        /* Boutons 3D Rouges / Corail */
         .btn-corail {
             display: block;
             width: 100%;
@@ -229,7 +225,7 @@ BASE_TEMPLATE = """
             transform: translateY(3px);
         }
 
-        /* Bouton 3D Jaune-Vert "Choose" façon QCommandLinkButton */
+        /* Bouton 3D Jaune-Vert "Choose" */
         .btn-choose {
             display: flex;
             align-items: center;
@@ -293,7 +289,7 @@ BASE_TEMPLATE = """
             font-size: 15px;
         }
 
-        /* Rendu Feuille de Cahier d'écolier Séyès */
+        /* Rendu Feuille de Cahier Séyès */
         .cahier-seyes {
             background-color: #FFFFFF;
             background-image: 
@@ -314,7 +310,6 @@ BASE_TEMPLATE = """
             margin-bottom: 12px;
         }
 
-        /* Rubans décoratifs latéraux pour la section dessin */
         .dessin-wrapper {
             display: flex;
             align-items: stretch;
@@ -356,7 +351,6 @@ BASE_TEMPLATE = """
             vertical-align: top;
         }
 
-        /* Animation de chargement circulaire (Loading 2ème interface) */
         .loader-ring {
             display: inline-block;
             position: relative;
@@ -384,7 +378,6 @@ BASE_TEMPLATE = """
             100% { transform: rotate(360deg); }
         }
 
-        /* Zone de défilement pour Boscher */
         .scroll-vertical {
             max-height: 440px;
             overflow-y: auto;
@@ -443,7 +436,6 @@ def page_choix():
             const sousTitre = document.getElementById('sous-titre-choix');
             const btnValider = document.getElementById('btn-valider-matiere');
 
-            // Sélection par défaut
             boutons[0].classList.add('selected');
             sousTitre.textContent = boutons[0].textContent;
 
@@ -464,13 +456,12 @@ def page_choix():
     return afficher(html)
 
 # =============================================================================
-# 2ÈME INTERFACE : PAGE DE CHARGEMENT ANIMÉE (AVEC TIMER 1.5s COMME DANS LE SCRIPT PYSIDE6)
+# 2ÈME INTERFACE : CHARGEMENT ANIMÉ
 # =============================================================================
 @app.route("/chargement")
 def page_chargement():
     matiere = request.args.get("matiere", "Francais")
     
-    # Destination selon la matière (exactement selon le dispatch Qt)
     if matiere == "Dessin":
         destination = "/dessin"
     elif matiere == "Cours":
@@ -501,7 +492,6 @@ def page_chargement():
         </div>
 
         <script>
-            // Reproduction du QTimer.singleShot(1500, self.ouvrir_interface_suivante)
             setTimeout(() => {{
                 window.location.href = "{destination}";
             }}, 1500);
@@ -510,7 +500,7 @@ def page_chargement():
     return afficher(html)
 
 # =============================================================================
-# 3ÈME INTERFACE : PAGE PROGRAMME (LEÇONS OU EXERCICES POUR FRANÇAIS & MATHÉMATIQUES)
+# 3ÈME INTERFACE : PAGE PROGRAMME
 # =============================================================================
 @app.route("/programme")
 def page_programme():
@@ -555,7 +545,7 @@ def page_anglais():
     return afficher(html)
 
 # =============================================================================
-# 4ÈME INTERFACE & SOUS-MENUS : DESSIN (CAROTTE & CARTABLE)
+# ATELIER DESSIN
 # =============================================================================
 @app.route("/dessin")
 def page_dessin():
@@ -671,7 +661,7 @@ def page_dessin_cartable():
                         </div>
                         <div style="background:#FFFFFF; border:2px solid #80DEEA; border-radius:10px; padding:10px;">
                             <b style="color:#0284C7;">Step 4 • Add the Straps</b><br>
-                            Tracer les deux jolies bretelles pour les épaules (two straps for your shoulders).
+                            Tracer les deux jolies bretelles pour les épaules.
                         </div>
                         <div style="background:#FFFFFF; border:2px solid #80DEEA; border-radius:10px; padding:10px;">
                             <b style="color:#0284C7;">Step 5 • Draw Details</b><br>
@@ -681,10 +671,6 @@ def page_dessin_cartable():
                             <b style="color:#D81B60;">Step 6 • Add a Cute Face!</b><br>
                             Ajouter les yeux kawaii brillants, de jolis cils, des pommettes roses et un grand sourire !
                         </div>
-                    </div>
-                    <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:10px; padding:10px; margin-top:12px; text-align:center;">
-                        <b style="color:#15803D;">🎉 À votre tour : Now it's your turn!</b><br>
-                        <span style="color:#166534; font-size:13px;">Vous pouvez colorier en rose, ajouter des étoiles vertes, des autocollants et des motifs originaux !</span>
                     </div>
                 </div>
             </div>
@@ -698,7 +684,7 @@ def page_dessin_cartable():
     return afficher(html)
 
 # =============================================================================
-# SECTION COURS
+# SECTION COURS (AVEC AJOUT DU BOUTON 46 - 14)
 # =============================================================================
 @app.route("/cours")
 def page_cours():
@@ -711,6 +697,7 @@ def page_cours():
 
             <button type="button" class="btn-rose btn-option" data-url="/cours/pose-et-effectue" data-titre="1-Pose et effectue">1-Pose et effectue</button>
             <button type="button" class="btn-rose btn-option" data-url="/cours/decompose" data-titre="1-Décompose">1-Décompose</button>
+            <button type="button" class="btn-rose btn-option" data-url="/cours/46-14" data-titre="46 - 14">46 - 14</button>
 
             <button type="button" id="btn-valider" class="btn-choose">➜ Choose</button>
             <a href="/" class="btn-retour">← Revenir au choix</a>
@@ -854,8 +841,84 @@ def page_cours_decompose():
     """
     return afficher(html)
 
+@app.route("/cours/46-14")
+def page_cours_46_14():
+    html = """
+        <div style="text-align:center;">
+            <span class="badge-date">📅 Mercredi 11 Novembre 2026</span>
+            <div class="titre-lecon">📖 Arithmétique : Soustractions (46 - 14)</div>
+        </div>
+
+        <div class="cahier-seyes">
+            <table class="table-calc">
+                <tr>
+                    <td>
+                        <span style="color:#0D47A1;">46 - 14 = 32</span><br><br>
+                        &nbsp;&nbsp;4 6<br>
+                        - 1 4<br>
+                        -------<br>
+                        &nbsp;&nbsp;3 2
+                    </td>
+                    <td>
+                        <span style="color:#0D47A1;">99 - 55 = 44</span><br><br>
+                        &nbsp;&nbsp;9 9<br>
+                        - 5 5<br>
+                        -------<br>
+                        &nbsp;&nbsp;4 4
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="color:#0D47A1;">118 - 13 = 105</span><br><br>
+                        &nbsp;&nbsp;1 1 8<br>
+                        - &nbsp;&nbsp;1 3<br>
+                        -------<br>
+                        &nbsp;&nbsp;1 0 5
+                    </td>
+                    <td>
+                        <span style="color:#0D47A1;">117 - 12 = 105</span><br><br>
+                        &nbsp;&nbsp;1 1 7<br>
+                        - &nbsp;&nbsp;1 2<br>
+                        -------<br>
+                        &nbsp;&nbsp;1 0 5
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="color:#0D47A1;">63 - 23 = 40</span><br><br>
+                        &nbsp;&nbsp;6 3<br>
+                        - 2 3<br>
+                        -------<br>
+                        &nbsp;&nbsp;4 0
+                    </td>
+                    <td>
+                        <span style="color:#0D47A1;">32 - 21 = 11</span><br><br>
+                        &nbsp;&nbsp;3 2<br>
+                        - 2 1<br>
+                        -------<br>
+                        &nbsp;&nbsp;1 1
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span style="color:#0D47A1;">77 - 67 = 10</span><br><br>
+                        &nbsp;&nbsp;7 7<br>
+                        - 6 7<br>
+                        -------<br>
+                        &nbsp;&nbsp;1 0
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="text-align:center;">
+            <a href="/cours" class="btn-retour">← Revenir aux Cours</a>
+        </div>
+    """
+    return afficher(html)
+
 # =============================================================================
-# SECTION MÉTHODE BOSCHER (TOUTES LES 30 LEÇONS COMPLÈTES)
+# SECTION MÉTHODE BOSCHER
 # =============================================================================
 BOSCHER_LECONS = [
     ("i - u", "iu"), ("o - a", "oa"), ("e", "e"), ("p", "p"), ("t", "t"),
@@ -912,7 +975,6 @@ def page_methode_boscher():
     """
     return afficher(html)
 
-# Dictionnaire de contenu intégral de toutes les leçons Boscher de PySide6
 BOSCHER_CONTENUS = {
     "iu": """
         <p><span class="badge-date" style="background:#0284C7;">Méthode Boscher</span></p>
@@ -1404,11 +1466,7 @@ BOSCHER_CONTENUS = {
         <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:13px; font-weight:bold; color:#15803D; line-height:2;">
             ✦ un cadre &nbsp;|&nbsp; ✦ une couleuvre &nbsp;|&nbsp; ✦ des prunes<br>
             <b>11 = 10 + 1</b><br>
-            11 = 9 + 2 &nbsp;&nbsp;|&nbsp;&nbsp; 11 = 8 + 3 &nbsp;&nbsp;|&nbsp;&nbsp; 3 + 8 = 11 &nbsp;&nbsp;|&nbsp;&nbsp; 1 + 10 = 11<br>
-            11 = 8 + 3 &nbsp;&nbsp;|&nbsp;&nbsp; 11 = 6 + 5 &nbsp;&nbsp;|&nbsp;&nbsp; 5 + 6 = 11 &nbsp;&nbsp;|&nbsp;&nbsp; 4 + 7 = 11<br>
-            11 = 7 + 4 &nbsp;&nbsp;|&nbsp;&nbsp; 11 = 4 + 7 &nbsp;&nbsp;|&nbsp;&nbsp; 8 + 3 = 11 &nbsp;&nbsp;|&nbsp;&nbsp; 6 + 5 = 11<br>
-            11 = 6 + 5 &nbsp;&nbsp;|&nbsp;&nbsp; 11 = 2 + 9 &nbsp;&nbsp;|&nbsp;&nbsp; 7 + 4 = 11 &nbsp;&nbsp;|&nbsp;&nbsp; 9 + 2 = 11<br>
-            11 = 5 + 5 + 1 &nbsp;|&nbsp; 11 = 1 + 10 &nbsp;|&nbsp; 2 + 9 = 11 &nbsp;|&nbsp; 5 + 6 = 11
+            11 = 9 + 2 &nbsp;&nbsp;|&nbsp;&nbsp; 11 = 8 + 3 &nbsp;&nbsp;|&nbsp;&nbsp; 3 + 8 = 11 &nbsp;&nbsp;|&nbsp;&nbsp; 1 + 10 = 11
         </div>
     """,
     "fr": """
@@ -1433,17 +1491,6 @@ BOSCHER_CONTENUS = {
             votre jeune frère a du chagrin. la cravate brune.<br>
             la montre de votre neveu a un joli cadran.
         </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#D97706; margin-top:12px;">🍓 Objets & Calculs :</p>
-        <div style="background:#FFFBEB; border:2px dashed #D97706; border-radius:12px; padding:12px; font-size:13px; font-weight:bold; color:#B45309; line-height:2;">
-            ✦ une cravate &nbsp;|&nbsp; ✦ une grive &nbsp;|&nbsp; ✦ un frelon &nbsp;|&nbsp; ✦ une montre &nbsp;|&nbsp; ✦ framboises<br>
-            <b>11 - 1 = 10</b><br>
-            11 - 2 = 9 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 7 = 4 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 4 = 7 &nbsp;&nbsp;|&nbsp;&nbsp; 5 + 5 = 10<br>
-            11 - 5 = 6 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 6 = 5 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 6 = 5 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 7 = 4<br>
-            11 - 3 = 8 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 8 = 3 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 8 = 3 &nbsp;&nbsp;|&nbsp;&nbsp; 7 + 4 = 11<br>
-            11 - 6 = 5 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 4 = 7 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 5 = 6 &nbsp;&nbsp;|&nbsp;&nbsp; 9 + 2 = 11<br>
-            11 - 8 = 3 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 9 = 2 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 9 = 2 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 5 = 6
-        </div>
     """,
     "bl": """
         <p><span class="badge-date" style="background:#0284C7;">Méthode Boscher</span></p>
@@ -1459,24 +1506,6 @@ BOSCHER_CONTENUS = {
             le feu ron fle. du sa ble fin. la plan te fleu ri ra.<br>
             la meu niè re mou dra le blé. de la dou blu re blan che.<br>
             flo ra a trou vé son pro blè me seu le. bra vo flo ra.
-        </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#065F46; margin-top:12px;">✍️ Écriture courante (cursive) :</p>
-        <div style="background:#ECFDF5; border:2px dashed #059669; border-radius:12px; padding:12px; font-size:14px; font-style:italic; font-weight:bold; color:#065F46; line-height:2.1; text-align:left;">
-            le flacon. la planche. du plâtre. je plante un pin.<br>
-            flora a du ruban bleu. de la doublure neuve.<br>
-            andré a semé du trèfle. planté un platane.
-        </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#2563EB; margin-top:12px;">🎶 Objets & Calculs :</p>
-        <div style="background:#EFF6FF; border:2px dashed #2563EB; border-radius:12px; padding:12px; font-size:13px; font-weight:bold; color:#1E40AF; line-height:2;">
-            ✦ une flûte &nbsp;|&nbsp; ✦ un flacon &nbsp;|&nbsp; ✦ platane &nbsp;|&nbsp; ✦ trèfle<br>
-            12 = 6 + 6 &nbsp;&nbsp;|&nbsp;&nbsp; 12 = 5 + 7 &nbsp;&nbsp;|&nbsp;&nbsp; 8 + 4 = 12 &nbsp;&nbsp;|&nbsp;&nbsp; 9 + 3 = 12<br>
-            12 = 10 + 2 &nbsp;&nbsp;|&nbsp;&nbsp; 12 = 4 + 8 &nbsp;&nbsp;|&nbsp;&nbsp; 5 + 7 = 12 &nbsp;&nbsp;|&nbsp;&nbsp; 4 + 8 = 12<br>
-            12 = 9 + 3 &nbsp;&nbsp;|&nbsp;&nbsp; 12 = 3 + 9 &nbsp;&nbsp;|&nbsp;&nbsp; 6 + 6 = 12 &nbsp;&nbsp;|&nbsp;&nbsp; 10 + 2 = 12<br>
-            12 = 8 + 4 &nbsp;&nbsp;|&nbsp;&nbsp; 12 = 10 + 2 &nbsp;|&nbsp; 3 + 9 = 12 &nbsp;&nbsp;|&nbsp;&nbsp; 6 + 6 = 12<br>
-            12 = 7 + 5 &nbsp;&nbsp;|&nbsp;&nbsp; 12 = 2 + 10 &nbsp;|&nbsp; 7 + 5 = 12 &nbsp;&nbsp;|&nbsp;&nbsp; 5 + 7 = 12<br>
-            <b>6 fois 2 = 12 &nbsp;|&nbsp; 2 fois 6 = 12 &nbsp;|&nbsp; 3 fois 4 = 12</b>
         </div>
     """,
     "cl": """
@@ -1494,23 +1523,6 @@ BOSCHER_CONTENUS = {
             la voi le du na vi re se gon fle. la fou dre é cla te.<br>
             la clé ma ti te cou vre la clô tu re du jar din.
         </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#581C87; margin-top:12px;">✍️ Écriture courante (cursive) :</p>
-        <div style="background:#FAF5FF; border:2px dashed #9333EA; border-radius:12px; padding:12px; font-size:14px; font-style:italic; font-weight:bold; color:#581C87; line-height:2.1; text-align:left;">
-            un clou. une glande. la cloche. une épingle.<br>
-            votre frère réclame à boire. coupe ton ongle.<br>
-            léon a retrouvé la clé de l'étable de son oncle.
-        </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#B45309; margin-top:12px;">🔔 Objets & Calculs :</p>
-        <div style="background:#FFFBEB; border:2px dashed #D97706; border-radius:12px; padding:12px; font-size:13px; font-weight:bold; color:#B45309; line-height:2;">
-            ✦ clôture &nbsp;|&nbsp; ✦ cloche &nbsp;|&nbsp; ✦ glands &nbsp;|&nbsp; ✦ clématite &nbsp;|&nbsp; ✦ églantines<br>
-            12 - 6 = 6 &nbsp;&nbsp;|&nbsp;&nbsp; 12 - 10 = 2 &nbsp;|&nbsp; 12 - 4 = 8 &nbsp;&nbsp;|&nbsp;&nbsp; 8 + 4 = 12<br>
-            12 - 9 = 3 &nbsp;&nbsp;|&nbsp;&nbsp; 12 - 5 = 7 &nbsp;&nbsp;|&nbsp; 12 - 7 = 5 &nbsp;&nbsp;|&nbsp;&nbsp; 12 - 2 = 10<br>
-            12 - 8 = 4 &nbsp;&nbsp;|&nbsp;&nbsp; 12 - 3 = 9 &nbsp;&nbsp;|&nbsp; 12 - 9 = 3 &nbsp;&nbsp;|&nbsp;&nbsp; 12 - 6 = 6<br>
-            12 - 4 = 8 &nbsp;&nbsp;|&nbsp;&nbsp; 12 - 2 = 10 &nbsp;|&nbsp; 12 - 6 = 6 &nbsp;&nbsp;|&nbsp;&nbsp; 9 + 3 = 12<br>
-            12 - 7 = 5 &nbsp;&nbsp;|&nbsp;&nbsp; 12 - 1 = 11 &nbsp;|&nbsp; 12 - 3 = 9 &nbsp;&nbsp;|&nbsp;&nbsp; 7 + 5 = 12
-        </div>
     """,
     "ar": """
         <p><span class="badge-date" style="background:#0284C7;">Méthode Boscher</span></p>
@@ -1526,23 +1538,6 @@ BOSCHER_CONTENUS = {
             mar ti ne re gar de sur la por te. mé dor te mor dra.<br>
             le fleu ve a dé bor dé sur le jar din plan té.<br>
             por te la mou tar de, le su cre, la crè me sur la ta ble.
-        </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#0F172A; margin-top:12px;">✍️ Écriture courante (cursive) :</p>
-        <div style="background:#F8FAFC; border:2px dashed #64748B; border-radius:12px; padding:12px; font-size:14px; font-style:italic; font-weight:bold; color:#1E293B; line-height:2.1; text-align:left;">
-            une virgule. un torchon. du marbre. le marché.<br>
-            émile a bu du vin pur. aline partira jeudi.<br>
-            ton oncle va venir, va ouvrir la porte du jardin.
-        </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#16A34A; margin-top:12px;">🌳 Objets & Calculs :</p>
-        <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:13px; font-weight:bold; color:#15803D; line-height:2;">
-            ✦ un arbre &nbsp;|&nbsp; ✦ cornes &nbsp;|&nbsp; ✦ une tortue &nbsp;|&nbsp; ✦ sardines &nbsp;|&nbsp; ✦ chardons<br>
-            13 = 10 + 3 &nbsp;&nbsp;|&nbsp;&nbsp; 13 = 6 + 6 + 1 &nbsp;|&nbsp; 5 + 8 = 13 &nbsp;&nbsp;|&nbsp;&nbsp; 2 + 9 = 11<br>
-            13 = 9 + 4 &nbsp;&nbsp;|&nbsp;&nbsp; 13 = 5 + 8 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; 9 + 4 = 13 &nbsp;&nbsp;|&nbsp;&nbsp; 10 + 3 = 13<br>
-            13 = 8 + 5 &nbsp;&nbsp;|&nbsp;&nbsp; 13 = 3 + 10 &nbsp;&nbsp;&nbsp;|&nbsp; 7 + 6 = 13 &nbsp;&nbsp;|&nbsp;&nbsp; 8 + 4 = 12<br>
-            13 = 7 + 6 &nbsp;&nbsp;|&nbsp;&nbsp; 13 = 6 + 7 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; 6 + 7 = 13 &nbsp;&nbsp;|&nbsp;&nbsp; 4 + 9 = 13<br>
-            13 = 11 + 2 &nbsp;|&nbsp;&nbsp; 13 = 4 + 9 &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; 3 + 10 = 13 &nbsp;|&nbsp;&nbsp; 5 + 7 = 12
         </div>
     """,
     "al": """
@@ -1560,23 +1555,6 @@ BOSCHER_CONTENUS = {
             clo til de boi ra un bol de crè me. j'a chè ve mon cal cul.<br>
             le ma ré chal cou pe la cor ne du che val.
         </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#0369A1; margin-top:12px;">✍️ Écriture courante (cursive) :</p>
-        <div style="background:#F0F9FF; border:2px dashed #0284C7; border-radius:12px; padding:12px; font-size:14px; font-style:italic; font-weight:bold; color:#075985; line-height:2.1; text-align:left;">
-            un maréchal. du tumulte. une salle de bal.<br>
-            je coupe le crin du cheval. médor va à son chenil.<br>
-            la voiture de la bouchère a culbuté à côté du fleuve.
-        </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#D97706; margin-top:12px;">🎈 Objets & Calculs :</p>
-        <div style="background:#FFFBEB; border:2px dashed #D97706; border-radius:12px; padding:12px; font-size:13px; font-weight:bold; color:#B45309; line-height:2;">
-            ✦ un bocal &nbsp;|&nbsp; ✦ un bol &nbsp;|&nbsp; ✦ un gril &nbsp;|&nbsp; ✦ des ballons<br>
-            13 - 3 = 10 &nbsp;&nbsp;|&nbsp;&nbsp; 13 - 2 = 11 &nbsp;|&nbsp; 13 - 7 = 6 &nbsp;&nbsp;|&nbsp;&nbsp; 13 - 8 = 5<br>
-            13 - 1 = 12 &nbsp;&nbsp;|&nbsp;&nbsp; 13 - 5 = 8 &nbsp;&nbsp;|&nbsp; 13 - 5 = 8 &nbsp;&nbsp;|&nbsp;&nbsp; 11 - 4 = 7<br>
-            13 - 4 = 9 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; 13 - 10 = 3 &nbsp;|&nbsp; 13 - 6 = 7 &nbsp;&nbsp;|&nbsp;&nbsp; 10 - 5 = 5<br>
-            13 - 6 = 7 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; 13 - 9 = 4 &nbsp;&nbsp;|&nbsp; 13 - 10 = 3 &nbsp;|&nbsp;&nbsp; 12 - 6 = 6<br>
-            13 - 8 = 5 &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; 13 - 7 = 6 &nbsp;&nbsp;|&nbsp; 13 - 4 = 9 &nbsp;&nbsp;|&nbsp;&nbsp; 13 - 5 = 8
-        </div>
     """,
     "en": """
         <p><span class="badge-date" style="background:#0284C7;">Méthode Boscher</span></p>
@@ -1588,12 +1566,6 @@ BOSCHER_CONTENUS = {
             le ven t . la den te . un ser pen t . la gen tian e .<br>
             une cen taine . un quen ouille . la tor ren te .<br>
             <span style="color:#2563EB;">le ven t souf fle for t sur le gran d sa pin .</span>
-        </div>
-
-        <p style="font-size:16px; font-weight:bold; color:#16A34A; margin-top:14px;">✍️ Écriture et phrase :</p>
-        <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:14px; font-weight:bold; color:#15803D; line-height:2.2; text-align:center;">
-            ✦ <i>le vent . une dent . un serpent .</i><br>
-            ✦ <i>jules a peur du grand serpent vert .</i>
         </div>
     """
 }
@@ -1678,12 +1650,6 @@ def page_chose_nagent():
             ✦ <b style="color:#0284C7;">le crocodile</b> (dans l'eau) &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#0284C7;">le canard</b>
         </div>
 
-        <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; margin-top:14px; font-size:14px; font-weight:bold; color:#15803D; line-height:2;">
-            💡 <b>À retenir :</b><br>
-            • Les poissons ont des nageoires et des branchies pour respirer dans l'eau.<br>
-            • Le dauphin et la baleine sont des mammifères marins qui savent très bien nager !
-        </div>
-
         <div style="text-align:center;">
             <a href="/lecons-de-chose" class="btn-retour">← Revenir aux Leçons de chose</a>
         </div>
@@ -1705,7 +1671,7 @@ def page_chose_volent():
         <p style="font-size:16px; font-weight:800; color:#B45309; margin-bottom:8px;">🦅 1. Les oiseaux et mammifères volants :</p>
         <div style="background:#FFFFFF; border:3px solid #80DEEA; border-radius:14px; padding:12px; font-size:15px; font-weight:bold; color:#0F172A; line-height:2.3;">
             ✦ <b style="color:#EA580C;">le pigeon</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#EA580C;">l'aigle</b><br>
-            ✦ <b style="color:#EA580C;">l'hirondelle</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#EA580C;">la chauve-souris</b> (mammifère volant)<br>
+            ✦ <b style="color:#EA580C;">l'hirondelle</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#EA580C;">la chauve-souris</b><br>
             ✦ <b style="color:#EA580C;">le perroquet</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#EA580C;">le canard sauvage</b>
         </div>
 
@@ -1713,10 +1679,6 @@ def page_chose_volent():
         <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:14px; font-weight:bold; color:#166534; line-height:2.2;">
             ✦ <b>le papillon</b> &nbsp;—&nbsp; ✦ <b>l'abeille</b> &nbsp;—&nbsp; ✦ <b>la mouche</b><br>
             ✦ <b>la libellule</b> &nbsp;—&nbsp; ✦ <b>la coccinelle</b> &nbsp;—&nbsp; ✦ <b>le moustique</b> &nbsp;—&nbsp; ✦ <b>la sauterelle</b>
-        </div>
-
-        <div style="background:#FFF1F2; border:2px dashed #E11D48; border-radius:12px; padding:10px; margin-top:14px; font-size:13px; font-weight:bold; color:#9F1239;">
-            ⚠️ <b>Attention :</b> Le crabe et l'anguille ne volent pas, ils se déplacent dans l'eau ou sur le sable !
         </div>
 
         <div style="text-align:center;">
@@ -1742,15 +1704,7 @@ def page_chose_marchent():
             ✦ <b style="color:#7C3AED;">le chat</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le chien</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">la chèvre</b><br>
             ✦ <b style="color:#7C3AED;">le lion</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le tigre</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le léopard</b><br>
             ✦ <b style="color:#7C3AED;">le cheval</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le dromadaire</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le zèbre</b><br>
-            ✦ <b style="color:#7C3AED;">l'éléphant</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">la girafe</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le cerf</b><br>
-            ✦ <b style="color:#7C3AED;">la gazelle</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">l'hippopotame</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le rhinocéros</b><br>
-            ✦ <b style="color:#7C3AED;">le renard</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le canard</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">l'autruche</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le dindon</b>
-        </div>
-
-        <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; margin-top:14px; font-size:14px; font-weight:bold; color:#15803D; line-height:2;">
-            💡 <b>Distinction utile :</b><br>
-            • <b>Quadrupèdes</b> : animaux à 4 pattes (le lion, le chat, le cheval, l'éléphant...)<br>
-            • <b>Bipèdes</b> : animaux à 2 pattes (l'autruche, le canard, la poule, le dindon...)
+            ✦ <b style="color:#7C3AED;">l'éléphant</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">la girafe</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#7C3AED;">le cerf</b>
         </div>
 
         <div style="text-align:center;">
@@ -1768,22 +1722,14 @@ def page_chose_rampent():
         </div>
 
         <div style="background:#ECFDF5; border-left:5px solid #059669; border-radius:10px; padding:12px; font-size:14px; line-height:2; color:#065F46; margin-bottom:14px;">
-            ✦ <b>Définition :</b> Les animaux qui rampent sont des animaux qui n'ont pas de pattes ou qui ont de très petites pattes, et qui utilisent leur <b>ventre</b> pour avancer et se déplacer (la reptation).
+            ✦ <b>Définition :</b> Les animaux qui rampent sont des animaux qui n'ont pas de pattes ou qui ont de très petites pattes, et qui utilisent leur <b>ventre</b> pour avancer et se déplacer.
         </div>
 
         <p style="font-size:16px; font-weight:800; color:#047857; margin-bottom:8px;">🐍 Les animaux qui rampent :</p>
         <div style="background:#FFFFFF; border:3px solid #80DEEA; border-radius:14px; padding:14px; font-size:15px; font-weight:bold; color:#0F172A; line-height:2.4;">
             ✦ <b style="color:#059669;">le serpent</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#059669;">le ver de terre</b><br>
             ✦ <b style="color:#059669;">l'escargot</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#059669;">la chenille</b><br>
-            ✦ <b style="color:#059669;">le lézard</b> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#059669;">la tortue</b><br>
-            ✦ <b style="color:#059669;">le scorpion</b> &nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#059669;">le crocodile</b> (au sol)<br>
-            ✦ <b style="color:#059669;">la limace</b>
-        </div>
-
-        <div style="background:#FFFBEB; border:2px dashed #D97706; border-radius:12px; padding:12px; margin-top:14px; font-size:14px; font-weight:bold; color:#B45309; line-height:2;">
-            💡 <b>Mots à retenir :</b><br>
-            • <i>ramper</i> : se déplacer en traînant son corps sur le sol.<br>
-            • Le serpent et le ver de terre n'ont pas de pattes ; la chenille et le lézard ont de petites pattes et rasent le sol.
+            ✦ <b style="color:#059669;">le lézard</b> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; ✦ <b style="color:#059669;">la tortue</b>
         </div>
 
         <div style="text-align:center;">
@@ -1793,7 +1739,7 @@ def page_chose_rampent():
     return afficher(html)
 
 # =============================================================================
-# MENUS FRANÇAIS (LEÇONS & EXERCICES) AVEC BOUTON CHOOSE
+# FRANÇAIS - MENUS
 # =============================================================================
 @app.route("/francais/lecons")
 def page_francais_lecons():
@@ -1882,7 +1828,7 @@ def page_francais_exercices():
     return afficher(html)
 
 # =============================================================================
-# SOUS-MENUS LEÇONS FRANÇAIS (ORTHOGRAPHE, CONJUGAISON, GRAMMAIRE, VOCABULAIRE)
+# FRANÇAIS - LEÇONS D'ORTHOGRAPHE (AVEC LA SUITE DU SON AR DANS LA MÊME LEÇON)
 # =============================================================================
 @app.route("/francais/lecons/orthographe")
 def page_lecons_orthographe():
@@ -1985,11 +1931,41 @@ def page_lecon_ortho_son_ar():
             ✦ <b style="color:#D90429; font-size:17px;">ar :</b> &nbsp;&nbsp;la <b style="color:#0D47A1;">carte</b> &nbsp;—&nbsp; un <b style="color:#0D47A1;">armoire</b><br><br>
             ✦ ✦ <b style="color:#16A34A; font-size:17px;">are :</b> &nbsp;&nbsp;la <b style="color:#047857;">mare</b> &nbsp;—&nbsp; un <b style="color:#047857;">arc</b> &nbsp;—&nbsp; la <b style="color:#047857;">tare</b>.
         </div>
-        <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:14px; color:#15803D; font-weight:bold;">
+
+        <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:14px; color:#15803D; font-weight:bold; margin-bottom:16px;">
             💡 <b>Mots à retenir :</b><br>
             • <i>la carte</i> &nbsp;|&nbsp; • <i>une armoire</i><br>
             • <i>la mare</i> &nbsp;|&nbsp; • <i>un arc</i> &nbsp;|&nbsp; • <i>la tare</i>
         </div>
+
+        <!-- SUITE DE LA LEÇON ISSUE DU CAHIER DU PDF (ard - ans/ars - art) -->
+        <div class="cahier-seyes" style="margin-top:16px;">
+            <p style="font-size:18px; font-weight:900; color:#E11D48; text-align:center; margin-bottom:12px;">
+                ✦ Suite de la leçon : ard — ans / ars — art ✦
+            </p>
+
+            <div style="margin-bottom:12px;">
+                <b style="color:#D90429; font-size:16px;">ard :</b>
+                <span class="cahier-ligne-texte" style="color:#1E3A8A; display:inline;">
+                    le jardin &nbsp;—&nbsp; le canard &nbsp;—&nbsp; un achard &nbsp;—&nbsp; le vieillard &nbsp;—&nbsp; sardine &nbsp;—&nbsp; la moutarde.
+                </span>
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <b style="color:#D90429; font-size:16px;">ars / ans :</b>
+                <span class="cahier-ligne-texte" style="color:#1E3A8A; display:inline;">
+                    le jars.
+                </span>
+            </div>
+
+            <div>
+                <b style="color:#D90429; font-size:16px;">art :</b>
+                <span class="cahier-ligne-texte" style="color:#1E3A8A; display:inline;">
+                    la part &nbsp;—&nbsp; la carte &nbsp;—&nbsp; le cartable &nbsp;—&nbsp; article &nbsp;—&nbsp; une partie.
+                </span>
+            </div>
+        </div>
+
         <div style="text-align:center;">
             <a href="/francais/lecons/orthographe" class="btn-retour">← Revenir aux Leçons d'Orthographe</a>
         </div>
@@ -2363,7 +2339,7 @@ def page_lecon_vocab_ecole():
     return afficher(html)
 
 # =============================================================================
-# EXERCICES DE FRANÇAIS (DICTÉES, ORTHOGRAPHE, CONJUGAISON, GRAMMAIRE)
+# FRANÇAIS - EXERCICES (DICTÉES, ORTHOGRAPHE, CONJUGAISON, GRAMMAIRE)
 # =============================================================================
 @app.route("/francais/exercices/dictee")
 def page_exercices_dictee():
@@ -3054,7 +3030,7 @@ def page_ex_gramm_souligne_bonne_rep():
     return afficher(html)
 
 # =============================================================================
-# MENUS MATHÉMATIQUES (LEÇONS & EXERCICES) AVEC BOUTON CHOOSE
+# MATHÉMATIQUES - MENUS PRINCIPAUX
 # =============================================================================
 @app.route("/mathematiques/lecons")
 def page_mathematiques_lecons():
@@ -3141,7 +3117,7 @@ def page_mathematiques_exercices():
     return afficher(html)
 
 # =============================================================================
-# SOUS-MENUS MATHÉMATIQUES (ARITHMÉTIQUE, GÉOMÉTRIE, MÉTRIQUE)
+# ARITHMÉTIQUE - LEÇONS (AVEC AJOUT "LA SOUSTRACTION SANS RETENUE")
 # =============================================================================
 @app.route("/mathematiques/lecons/arithmetique")
 def page_arithmetique():
@@ -3157,6 +3133,7 @@ def page_arithmetique():
             <button type="button" class="btn-rose btn-option" data-url="/mathematiques/lecons/arithmetique/addition-sans" data-titre="Addition sans retenue">Addition sans retenue</button>
             <button type="button" class="btn-rose btn-option" data-url="/mathematiques/lecons/arithmetique/addition-avec" data-titre="Addition avec retenue">Addition avec retenue</button>
             <button type="button" class="btn-rose btn-option" data-url="/mathematiques/lecons/arithmetique/comptage-119" data-titre="Comptage de 1 en 1 de 80 à 119">Comptage de 1 en 1 de 80 à 119</button>
+            <button type="button" class="btn-rose btn-option" data-url="/mathematiques/lecons/arithmetique/soustraction-sans" data-titre="La soustraction sans retenue">La soustraction sans retenue</button>
 
             <button type="button" id="btn-valider" class="btn-choose">➜ Choose</button>
             <a href="/mathematiques/lecons" class="btn-retour">← Revenir aux leçons de Mathématiques</a>
@@ -3184,6 +3161,55 @@ def page_arithmetique():
                 window.location.href = urlChoisie;
             });
         </script>
+    """
+    return afficher(html)
+
+@app.route("/mathematiques/lecons/arithmetique/soustraction-sans")
+def page_lecon_soustraction_sans():
+    html = """
+        <div style="text-align:center;">
+            <span class="badge-date">📅 Lundi 09 Novembre 2026</span>
+            <div class="titre-lecon">📖 Soustraction sans retenue</div>
+        </div>
+
+        <div class="cahier-seyes">
+            <div class="cahier-ligne-texte" style="color:#D90429; font-size:18px; text-decoration:underline; margin-bottom:14px;">
+                Soustraction sans retenue
+            </div>
+
+            <div class="cahier-ligne-texte" style="line-height:2.2; font-size:16px;">
+                On fait la <b>soustraction</b> quand on enlève, quand on ôte, quand on cherche le reste, quand on donne quelque chose à quelqu'un.
+            </div>
+
+            <div style="background:#FFF3E0; border-left:5px solid #F97316; border-radius:10px; padding:12px; margin:14px 0; font-size:16px; font-weight:bold; color:#C2410C;">
+                ✦ Soustraction veut dire « <span style="color:#DC2626;">ôter</span> ».
+            </div>
+
+            <div class="cahier-ligne-texte" style="margin-top:16px;">
+                ✦ Le signe de soustraction c'est : <b style="color:#D90429; font-size:20px;">-</b>
+            </div>
+
+            <div class="cahier-ligne-texte" style="margin-top:16px; color:#1E3A8A;">
+                <u>Le mécanisme :</u>
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:30px; align-items:center; margin-top:10px; flex-wrap:wrap;">
+                <div style="background:#F0F9FF; border:2px dashed #0284C7; border-radius:12px; padding:14px 24px; font-size:18px; font-weight:bold; color:#0369A1;">
+                    9 - 3 = 6
+                </div>
+
+                <div style="background:#FFFFFF; border:2px solid #80DEEA; border-radius:12px; padding:14px 28px; font-family:'Courier New', Courier, monospace; font-size:22px; font-weight:bold; text-align:right;">
+                    &nbsp;&nbsp;9<br>
+                    - 3<br>
+                    ---<br>
+                    &nbsp;&nbsp;6
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center;">
+            <a href="/mathematiques/lecons/arithmetique" class="btn-retour">← Revenir aux leçons d'Arithmétique</a>
+        </div>
     """
     return afficher(html)
 
