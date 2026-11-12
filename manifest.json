@@ -1,44 +1,15 @@
 {
-  "id": "https://verjolikeyou.github.io/programme/",
-  "name": "Programme en 11eme",
-  "short_name": "11ème",
-  "description": "Application éducative pour la 11ème : Français, Mathématiques, Boscher, Sciences et Dessin.",
-  "start_url": "https://verjolikeyou.github.io/programme/index.html",
-  "scope": "https://verjolikeyou.github.io/programme/",
+  "name": "VerjoApp",
+  "short_name": "VerjoApp",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#E0F7FA",
-  "theme_color": "#4361EE",
-  "lang": "fr",
-  "dir": "ltr",
-  "categories": [
-    "education",
-    "books"
-  ],
+  "background_color": "#ffffff",
+  "theme_color": "#2196F3",
   "icons": [
     {
-      "src": "https://verjolikeyou.github.io/programme/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://verjolikeyou.github.io/programme/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "https://verjolikeyou.github.io/programme/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://verjolikeyou.github.io/programme/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "src": "app_icon.ico",
+      "sizes": "192x192 512x512",
+      "type": "image/x-icon"
     }
   ]
 }
