@@ -1,37 +1,41 @@
 {
-  "id": "com.programme.onzieme.app",
+  "id": "https://verjolikeyou.github.io/programme/",
   "name": "Programme en 11eme",
   "short_name": "11ème",
   "description": "Application éducative pour la 11ème : Français, Mathématiques, Boscher, Sciences et Dessin.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "https://verjolikeyou.github.io/programme/index.html",
+  "scope": "https://verjolikeyou.github.io/programme/",
   "display": "standalone",
-  "display_override": ["standalone", "fullscreen"],
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "background_color": "#E0F7FA",
   "theme_color": "#4361EE",
-  "categories": ["education", "kids", "books"],
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "books"
+  ],
   "icons": [
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Graduation_hat_icon.png/192px-Graduation_hat_icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Graduation_hat_icon.png/192px-Graduation_hat_icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Graduation_hat_icon.png/512px-Graduation_hat_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Graduation_hat_icon.png/512px-Graduation_hat_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -39,18 +43,18 @@
   ],
   "screenshots": [
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Graduation_hat_icon.png/512px-Graduation_hat_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Accueil 11ème"
+      "label": "Accueil de l'application"
     },
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Graduation_hat_icon.png/512px-Graduation_hat_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Programme d'études"
+      "label": "Programme d'apprentissage"
     }
   ]
 }
