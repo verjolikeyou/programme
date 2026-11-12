@@ -1,28 +1,20 @@
 {
-  "id": "programme-11eme-app",
+  "id": "/programme/",
   "name": "Programme en 11 eme",
   "short_name": "11ème",
-  "description": "Application éducative complète pour le programme scolaire de 11ème : Français, Mathématiques, Cours, Dessin, Méthode Boscher et Leçons de choses.",
+  "description": "Application éducative complète pour le programme scolaire de 11ème.",
   "lang": "fr",
   "dir": "ltr",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "/programme/",
+  "scope": "/programme/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#E0F7FA",
   "theme_color": "#4361EE",
   "categories": [
     "education",
-    "books",
-    "kids"
+    "books"
   ],
-  "prefer_related_applications": false,
-  "serviceworker": {
-    "src": "./sw.js",
-    "scope": "./",
-    "type": "classic",
-    "update_via_cache": "none"
-  },
   "icons": [
     {
       "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
@@ -49,14 +41,14 @@
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Programme scolaire 11ème sur Mobile"
+      "label": "Écran mobile"
     },
     {
       "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Programme scolaire 11ème sur Tablette et Bureau"
+      "label": "Écran large"
     }
   ]
 }
