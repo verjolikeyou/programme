@@ -1,15 +1,55 @@
 {
-  "name": "VerjoApp",
-  "short_name": "VerjoApp",
-  "start_url": "/",
+  "id": "programme-11eme-app",
+  "name": "Programme en 11 eme",
+  "short_name": "11ème",
+  "description": "Application éducative complète pour le programme scolaire de 11ème : Français, Mathématiques, Cours, Dessin, Méthode Boscher et Leçons de choses.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2196F3",
+  "orientation": "portrait-primary",
+  "background_color": "#E0F7FA",
+  "theme_color": "#4361EE",
+  "categories": [
+    "education",
+    "books",
+    "kids"
+  ],
   "icons": [
     {
-      "src": "app_icon.ico",
-      "sizes": "192x192 512x512",
-      "type": "image/x-icon"
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Écran d'accueil du programme scolaire en 11ème"
+    },
+    {
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Interface du programme d'apprentissage"
     }
   ]
 }
