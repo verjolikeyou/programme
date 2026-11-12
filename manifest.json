@@ -1,6 +1,6 @@
 {
   "id": "/",
-  "name": "Programme en 11 eme",
+  "name": "Programme en 11ème",
   "short_name": "11ème",
   "description": "Application éducative complète pour le programme scolaire de 11ème.",
   "lang": "fr",
@@ -16,7 +16,12 @@
   ],
   "icons": [
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
+      "src": "/icone.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icone.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
