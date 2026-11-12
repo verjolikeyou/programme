@@ -2,15 +2,21 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#4361EE">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Programme en 11 eme</title>
+    
+    <!-- Paramètres Standalone / Suppression barre URL supérieure -->
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="manifest.json">
-    <title>Programme en 11 eme</title>
+    <meta name="theme-color" content="#4361EE">
+    
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: "Comic Sans MS", "Comic Neue", "Fredoka", Arial, sans-serif;
             background: linear-gradient(180deg, #E0F7FA 0%, #FFF9C4 60%, #FFE0B2 100%);
@@ -71,7 +77,7 @@
             border: 3px solid #80DEEA;
             border-radius: 20px;
             padding: 14px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.65);
             margin-bottom: 8px;
         }
         .btn-bleu {
@@ -242,21 +248,23 @@
             padding-right: 4px;
             margin-bottom: 10px;
         }
+        .scroll-vertical::-webkit-scrollbar { width: 6px; }
+        .scroll-vertical::-webkit-scrollbar-thumb { background: #80DEEA; border-radius: 6px; }
         .loader-ring {
             display: inline-block;
             position: relative;
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             margin: 16px auto;
         }
         .loader-ring div {
             box-sizing: border-box;
             display: block;
             position: absolute;
-            width: 70px;
-            height: 70px;
-            margin: 10px;
-            border: 7px solid #4361EE;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border: 6px solid #4361EE;
             border-radius: 50%;
             animation: ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
             border-color: #4361EE transparent transparent transparent;
@@ -269,13 +277,11 @@
 </head>
 <body>
 
-<div class="container" id="app-root">
-    <!-- Le contenu de la SPA est généré dynamiquement ici -->
-</div>
+<div class="container" id="app-root"></div>
 
 <script>
 // =============================================================================
-// DONNÉES COMPLÈTES DE LA MÉTHODE BOSCHER (30 LEÇONS)
+// DONNÉES COMPLÈTES DE LA MÉTHODE BOSCHER (30 LEÇONS DE MAIN.PY)
 // =============================================================================
 const BOSCHER_LECONS = [
     { code: "iu", label: "i - u" }, { code: "oa", label: "o - a" }, { code: "e", label: "e" },
@@ -313,7 +319,7 @@ const BOSCHER_CONTENUS = {
             u &nbsp; o &nbsp; a &nbsp; i &nbsp; o &nbsp; u &nbsp; a &nbsp; o<br>
             a &nbsp; u &nbsp; o &nbsp; a &nbsp; i &nbsp; a &nbsp; o &nbsp; i
         </div>
-        <p style="font-size:16px; font-weight:bold; color:#16A34A; margin-top:14px;">🫒 Vocabulaire :</p>
+        <p style="font-size:16px; font-weight:bold; color:#16A34A; margin-top:14px;">🫒 Illustrations & Vocabulaire :</p>
         <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:12px; padding:12px; font-size:15px; font-weight:bold; color:#15803D; line-height:2.2; text-align:center;">
             ✦ 2 olives &nbsp;|&nbsp; ✦ 1 avion &nbsp;|&nbsp; ✦ 1 âne &nbsp;|&nbsp; des abricots<br>
             1 + 1 = 2 &nbsp;&nbsp;|&nbsp;&nbsp; 2 - 1 = 1
@@ -609,6 +615,7 @@ let historique = ['home'];
 function nav(screenId, pushHistory = true) {
     if (pushHistory) historique.push(screenId);
     render(screenId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function retour() {
@@ -619,6 +626,7 @@ function retour() {
     } else {
         render('home');
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function animerChargement(matiere, ecranCible) {
@@ -639,11 +647,11 @@ function animerChargement(matiere, ecranCible) {
     `;
     setTimeout(() => {
         nav(ecranCible);
-    }, 1200);
+    }, 1100);
 }
 
 // =============================================================================
-// MOTEUR D'AFFICHAGE DES ÉCRANS
+// MOTEUR D'AFFICHAGE COMPLET DE TOUS LES ÉCRANS
 // =============================================================================
 function render(screen) {
     const root = document.getElementById('app-root');
@@ -671,7 +679,7 @@ function render(screen) {
         window.matiereNom = 'Français';
     }
 
-    // --- PROGRAMME (FRANÇAIS & MATHÉMATIQUES) ---
+    // --- PROGRAMMES (FRANÇAIS & MATHÉMATIQUES) ---
     else if (screen === 'prog_Francais' || screen === 'prog_Mathematiques') {
         const isFr = screen === 'prog_Francais';
         const nom = isFr ? 'Français' : 'Mathématiques';
@@ -710,7 +718,7 @@ function render(screen) {
         `;
     }
 
-    // --- SOUS-MENU ORTHOGRAPHE LEÇONS ---
+    // --- LEÇONS ORTHOGRAPHE ---
     else if (screen === 'fr_lecon_orthographe') {
         root.innerHTML = `
             <div class="cadre-menu">
@@ -741,7 +749,7 @@ function render(screen) {
             <div style="background:#E1F5FE; border-radius:12px; padding:10px; font-size:14px; color:#0D47A1; font-weight:bold;">
                 💡 <b>Règle :</b> Le son « i » peut s'écrire simplement <i>i</i> ou <i>y</i>, mais aussi avec des lettres muettes finales comme <i>it, is, id, iz, ie</i> !
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons d'Orthographe</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
     else if (screen === 'fr_ortho_son_e') {
@@ -759,7 +767,7 @@ function render(screen) {
             <div style="background:#FFF9C4; border-radius:12px; padding:10px; font-size:14px; color:#E65100; font-weight:bold;">
                 🔍 <b>Remarque :</b> Les graphies <i>eu</i> et <i>oeu</i> se prononcent de façon semblable comme dans le jeu, la soeur et le noeud !
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons d'Orthographe</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
     else if (screen === 'fr_ortho_son_ar') {
@@ -772,11 +780,11 @@ function render(screen) {
                 ✦ <b style="color:#D90429; font-size:17px;">ar :</b> &nbsp;&nbsp;la <b style="color:#0D47A1;">carte</b> — un <b style="color:#0D47A1;">armoire</b><br><br>
                 ✦ <b style="color:#16A34A; font-size:17px;">are :</b> &nbsp;&nbsp;la <b style="color:#047857;">mare</b> — un <b style="color:#047857;">arc</b> — la <b style="color:#047857;">tare</b>.
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons d'Orthographe</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
 
-    // --- SOUS-MENU CONJUGAISON LEÇONS ---
+    // --- LEÇONS CONJUGAISON ---
     else if (screen === 'fr_lecon_conjugaison') {
         root.innerHTML = `
             <div class="cadre-menu">
@@ -802,7 +810,7 @@ function render(screen) {
                 ✦ Allah est gentil. ➔ <b style="color:#D81B60;">Il</b> est gentil.<br>
                 ✦ Fatou prend le livre. ➔ <b style="color:#D81B60;">Elle</b> prend le livre.
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
     else if (screen === 'fr_conj_pluriel') {
@@ -817,11 +825,11 @@ function render(screen) {
                 ✦ <b style="color:#D81B60;">Ils</b> (masculin pluriel)<br>
                 ✦ <b style="color:#D81B60;">Elles</b> (féminin pluriel)
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
 
-    // --- SOUS-MENU GRAMMAIRE LEÇONS ---
+    // --- LEÇONS GRAMMAIRE ---
     else if (screen === 'fr_lecon_grammaire') {
         root.innerHTML = `
             <div class="cadre-menu">
@@ -847,7 +855,7 @@ function render(screen) {
                 ✦ <b style="color:#1B5E20;">6 voyelles :</b> a - e - i - o - u - y.<br>
                 ✦ <b style="color:#0D47A1;">20 consonnes.</b>
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
     else if (screen === 'fr_gramm_syllabes') {
@@ -866,7 +874,7 @@ function render(screen) {
                 • pro - me - na - de = <b>4 syllabes</b><br>
                 • lo - co - mo - ti - ve = <b>5 syllabes</b>
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
     else if (screen === 'fr_gramm_noms') {
@@ -883,11 +891,11 @@ function render(screen) {
             <div style="margin-top:14px; background:#FEF2F2; border:2px solid #EF4444; border-radius:12px; padding:12px;">
                 <b>✨ Les noms propres :</b> commencent toujours par une <b>Majuscule</b> (ex: <i>Marius, Mandroseza, France</i>).
             </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Leçons</button>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
 
-    // --- SOUS-MENU VOCABULAIRE LEÇONS ---
+    // --- LEÇONS VOCABULAIRE ---
     else if (screen === 'fr_lecon_vocabulaire') {
         root.innerHTML = `
             <div class="cadre-menu">
@@ -948,7 +956,7 @@ function render(screen) {
         `;
     }
 
-    // --- FRANÇAIS EXERCICES ---
+    // --- FRANÇAIS EXERCICES (MENU GLOBAL) ---
     else if (screen === 'fr_exercices') {
         root.innerHTML = `
             <div class="cadre-menu">
@@ -961,509 +969,752 @@ function render(screen) {
             </div>
         `;
     }
-    else if (screen === 'fr_ex_dictee') {
+
+    // --- EXERCICES ORTHOGRAPHE ---
+    else if (screen === 'fr_ex_orthographe') {
         root.innerHTML = `
             <div class="cadre-menu">
-                <h1 class="titre-principal">Dictées Préparées</h1>
-                <button class="btn-rose" onclick="nav('fr_dictee_1')">1- 02 Octobre (Je porte un pyjama bleu...)</button>
-                <button class="btn-rose" onclick="nav('fr_dictee_2')">2- 09 Octobre (Je plante un pin...)</button>
-                <button class="btn-rose" onclick="nav('fr_dictee_3')">3- 16 Octobre (Il brosse seul ses dents...)</button>
-                <button class="btn-rose" onclick="nav('fr_dictee_4')">4- 22 Octobre (La propreté est bonne...)</button>
-                <button class="btn-rose" onclick="nav('fr_dictee_5')">5- 30 Octobre (Ils montrent la carte...)</button>
+                <h1 class="titre-principal">Exercices d'Orthographe</h1>
+                <button class="btn-rose" onclick="nav('fr_ex_ortho_ie_y_it')">1- Complète par ie, y, it</button>
+                <button class="btn-rose" onclick="nav('fr_ex_ortho_is_id_iz')">1- Complète par is, id, iz</button>
+                <button class="btn-rose" onclick="nav('fr_ex_ortho_i_isc')">1- Complète par î, isc</button>
+                <button class="btn-rose" onclick="nav('fr_ex_ortho_e_eu')">1- Complète par e, eu</button>
+                <button class="btn-rose" onclick="nav('fr_ex_ortho_oeu_oei')">1- Complète par oeu, oei</button>
+                <button class="btn-rose" onclick="nav('fr_ex_ortho_dictee')">1- Dictée (are, ar)</button>
                 <button class="btn-retour" onclick="retour()">← Revenir</button>
             </div>
         `;
     }
-    else if (screen === 'fr_dictee_1') {
+
+
+    else if (screen === 'fr_ex_ortho_ie_y_it') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date">📅 02 Octobre 2026</span>
-                <div class="titre-lecon">✏️ Dictée préparée</div>
+                <span class="badge-date">📅 Mardi 22 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Orthographe — Exercices</div>
             </div>
-            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
-                ✦ <b style="color:#0D47A1;">Je porte un pyjama bleu.</b><br>
-                ✦ <b style="color:#0D47A1;">Tu manges le riz.</b><br>
-                ✦ <b style="color:#0D47A1;">Marius coupe ses ongles vendredi.</b><br>
-                ✦ <b style="color:#0D47A1;">Elle lave le visage de mon neveu.</b><br>
-                ✦ <b style="color:#0D47A1;">Il est à Paris.</b>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Il y a combien de lettres dans l'alphabet français ?</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-weight:bold; color:#1B5E20; margin-bottom:12px;">
+                Il y a 26 lettres.
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Complète par : ie , y , it :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:12px; font-size:15px; line-height:2;">
+                ✦ le l<b>it</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; le padd<b>y</b><br>
+                ✦ Marie &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; ✦ la nu<b>it</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; le st<b>y</b>lo<br>
+                ✦ la v<b>ie</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; le paraplu<b>ie</b>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices d'Orthographe</button>
+        `;
+    }
+    else if (screen === 'fr_ex_ortho_is_id_iz') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 14 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Orthographe — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Complète par : is , id , iz :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:12px; font-size:15px; line-height:2; margin-bottom:12px;">
+                ✦ le r<b>iz</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; le tap<b>is</b><br>
+                ✦ une sour<b>is</b> &nbsp;|&nbsp;&nbsp; le n<b>id</b><br>
+                ✦ le l<b>it</b>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Cherche 2 mots qui contiennent « is » :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-weight:bold; color:#0D47A1;">
+                ✦ tapis &nbsp;&nbsp;|&nbsp;&nbsp; ✦ souris
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices d'Orthographe</button>
+        `;
+    }
+    else if (screen === 'fr_ex_ortho_i_isc') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 06 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Orthographe — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Complète par : î , isc :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:12px; font-size:15px; line-height:2; margin-bottom:12px;">
+                ✦ l'<b>î</b>le &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; une ab<b>î</b>me<br>
+                ✦ la perdrix &nbsp;&nbsp;|&nbsp;&nbsp; le h<b>isc</b>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Donne 1 mot qui contient « h » :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-weight:bold; color:#1B5E20;">
+                ✦ hibou
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices d'Orthographe</button>
+        `;
+    }
+    else if (screen === 'fr_ex_ortho_e_eu') {
+        root.innerHTML = `
+            <div class="titre-lecon">✏️ Orthographe — Exercices</div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Complète par : e , eu :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:12px; font-size:15px; line-height:2; margin-bottom:12px;">
+                ✦ promenade &nbsp;|&nbsp; fl<b>eu</b>ve<br>
+                ✦ petite &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp; le j<b>eu</b>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Cherche 2 mots qui contiennent « eu » :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-weight:bold; color:#0D47A1;">
+                ✦ le jeu &nbsp;&nbsp;|&nbsp;&nbsp; ✦ fleuve
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices d'Orthographe</button>
+        `;
+    }
+    else if (screen === 'fr_ex_ortho_oeu_oei') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 15 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Orthographe — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Complète par : oeu , oei :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:12px; font-size:15px; line-height:2; margin-bottom:12px;">
+                ✦ un n<b>oeu</b>d &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; une s<b>oeu</b>r<br>
+                ✦ l'<b>oei</b>l &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; le b<b>oeu</b>f
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Cherche 2 mots qui contiennent « oeu » :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-weight:bold; color:#0D47A1;">
+                ✦ boeuf &nbsp;&nbsp;|&nbsp;&nbsp; ✦ soeur
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices d'Orthographe</button>
+        `;
+    }
+    else if (screen === 'fr_ex_ortho_dictee') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 27 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Orthographe — Dictée & Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Dictée :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; color:#1E3A8A; margin-bottom:12px;">
+                une armoire &nbsp;—&nbsp; un are &nbsp;—&nbsp; un mare &nbsp;—&nbsp; la carte
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Complète par : are - ar :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; font-size:15px; line-height:2; margin-bottom:12px;">
+                ✦ la t<b style="color:#D81B60;">are</b> &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; p<b style="color:#D81B60;">ar</b><br>
+                ✦ un c<b style="color:#D81B60;">ar</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp; la m<b style="color:#D81B60;">are</b>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">3) Trouves 1 mot contenant « are » :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:8px; font-size:15px; font-weight:bold; color:#15803D; margin-bottom:12px;">
+                ✦ la mare
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">4) Cherche 2 mots qui contient « ar » :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:8px; font-size:15px; font-weight:bold; color:#15803D;">
+                ✦ par &nbsp;&nbsp;|&nbsp;&nbsp; ✦ car
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices d'Orthographe</button>
+        `;
+    }
+
+    // --- EXERCICES CONJUGAISON ---
+    else if (screen === 'fr_ex_conjugaison') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Exercices de Conjugaison</h1>
+                <button class="btn-rose" onclick="nav('fr_ex_conj_je_tu')">1- Remplace par Je ou Tu</button>
+                <button class="btn-rose" onclick="nav('fr_ex_conj_il_elle')">1- Remplace par Il ou Elle</button>
+                <button class="btn-rose" onclick="nav('fr_ex_conj_singulier')">1- PPS au singulier</button>
+                <button class="btn-rose" onclick="nav('fr_ex_conj_nous_vous')">1- Remplace par Nous, Vous</button>
+                <button class="btn-rose" onclick="nav('fr_ex_conj_pluriels')">1- PPS aux pluriels</button>
+                <button class="btn-rose" onclick="nav('fr_ex_conj_remplace_soulignes')">1- Remplace les mots soulignés</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_ex_conj_je_tu') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Jeudi 24 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Conjugaison — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Remplace par « Je » ou « Tu » :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ Moi joue dans la cour. ➔ <b style="color:#1B5E20;">Je</b> joue dans la cour.<br>
+                ✦ Toi vas à l'école. ➔ <b style="color:#1B5E20;">Tu</b> vas à l'école.<br>
+                ✦ Moi dessine un chapeau. ➔ <b style="color:#1B5E20;">Je</b> dessine un chapeau.<br>
+                ✦ Toi as un stylo. ➔ <b style="color:#1B5E20;">Tu</b> as un stylo.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Conjugaison</button>
+        `;
+    }
+    else if (screen === 'fr_ex_conj_il_elle') {
+        root.innerHTML = `
+            <div class="titre-lecon">✏️ Conjugaison — Exercices</div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Remplace les mots soulignés par « Il » ou « Elle » :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ <u>René</u> continue son devoir. ➔ <b style="color:#1B5E20;">Il</b> continue son devoir.<br>
+                ✦ <u>Julie</u> est malade. ➔ <b style="color:#1B5E20;">Elle</b> est malade.<br>
+                ✦ <u>Ma tante</u> va au marché. ➔ <b style="color:#1B5E20;">Elle</b> va au marché.<br>
+                ✦ <u>Mathis</u> est gentil. ➔ <b style="color:#1B5E20;">Il</b> est gentil.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Conjugaison</button>
+        `;
+    }
+    else if (screen === 'fr_ex_conj_singulier') {
+        root.innerHTML = `
+            <div class="titre-lecon">✏️ Conjugaison — Exercices</div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Remplace les mots soulignés par les PPS au singulier :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ <u>Le garçon</u> mange du chocolat. ➔ <b style="color:#1B5E20;">Il</b> mange du chocolat.<br>
+                ✦ <u>Amina</u> dort seule. ➔ <b style="color:#1B5E20;">Elle</b> dort seule.<br>
+                ✦ <u>Max</u> joue au ballon. ➔ <b style="color:#1B5E20;">Il</b> joue au ballon.<br>
+                ✦ <u>Mon frère</u> lit la leçon. ➔ <b style="color:#1B5E20;">Il</b> lit la leçon.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Conjugaison</button>
+        `;
+    }
+    else if (screen === 'fr_ex_conj_nous_vous') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Jeudi 15 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Conjugaison — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Remplace par les PPS « Nous » et « Vous » :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ Toi et moi regardons la télévision. ➔ <b style="color:#1B5E20;">Nous</b> regardons la télévision.<br>
+                ✦ Toi et mon maître allez à Rome. ➔ <b style="color:#1B5E20;">Vous</b> allez à Rome.<br>
+                ✦ Moi et maman achetons un stylo. ➔ <b style="color:#1B5E20;">Nous</b> achetons un stylo.<br>
+                ✦ Toi et Lucie avez un joli cartable. ➔ <b style="color:#1B5E20;">Vous</b> avez un joli cartable.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Conjugaison</button>
+        `;
+    }
+    else if (screen === 'fr_ex_conj_pluriels') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 20 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Conjugaison — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Remplace par les PPS au pluriel :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ <u>Toi et Marie</u> avez mal au coeur. ➔ <b style="color:#1B5E20;">Vous</b> avez mal au coeur.<br>
+                ✦ <u>Moi et papa</u> adorons le thé. ➔ <b style="color:#1B5E20;">Nous</b> adorons le thé.<br>
+                ✦ <u>Les filles</u> entrent dans la salle. ➔ <b style="color:#1B5E20;">Elles</b> entrent dans la salle.<br>
+                ✦ <u>Mathieu et Jules</u> jouent à la corde. ➔ <b style="color:#1B5E20;">Ils</b> jouent à la corde.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Conjugaison</button>
+        `;
+    }
+    else if (screen === 'fr_ex_conj_remplace_soulignes') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 26 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Conjugaison — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Remplace les mots soulignés par : Ils, Elles, Nous, Vous :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.3;">
+                ✦ <u>Marie et Clara</u> étudient bien. ➔ <b style="color:#15803D;">Elles</b><br>
+                ✦ <u>Jonathan et André</u> utilisent une moule. ➔ <b style="color:#15803D;">Ils</b><br>
+                ✦ <u>Moi et Jean</u> assoyons près de la mare. ➔ <b style="color:#15803D;">Nous</b><br>
+                ✦ <u>Toi et Victor</u> avez votre stylo. ➔ <b style="color:#15803D;">Vous</b><br>
+                ✦ <u>Max et Maxime</u> montrent la carte. ➔ <b style="color:#15803D;">Ils</b>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-top:12px; margin-bottom:8px;">2) Cite les PPS :</p>
+            <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; color:#166534;">
+                - Je, Tu, Il, Elle, Nous, Vous, Ils, Elles
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Conjugaison</button>
+        `;
+    }
+
+    // --- EXERCICES GRAMMAIRE ---
+    else if (screen === 'fr_ex_grammaire') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Exercices de Grammaire</h1>
+                <button class="btn-rose" onclick="nav('fr_ex_gramm_26_lettres')">1- Les 26 lettres de l'alphabet</button>
+                <button class="btn-rose" onclick="nav('fr_ex_gramm_voyelles')">1- Voyelles et consonnes</button>
+                <button class="btn-rose" onclick="nav('fr_ex_gramm_separe_syllabes')">1- Sépare et donne le nombre de syllabes</button>
+                <button class="btn-rose" onclick="nav('fr_ex_gramm_compte_syllabes')">1- Compte et sépare les syllabes</button>
+                <button class="btn-rose" onclick="nav('fr_ex_gramm_animal_chose_pers')">1- Animal - chose - personne</button>
+                <button class="btn-rose" onclick="nav('fr_ex_gramm_souligne_bonne_rep')">1- Souligne la bonne réponse</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'fr_ex_gramm_26_lettres') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 21 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Grammaire — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Quels sont les 26 lettres de l'alphabet français ?</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:12px; font-size:15px; line-height:2; margin-bottom:12px;">
+                <b style="color:#D81B60;">a - b - c - d - e - f - g - h - i - j - k - l - m - n - o - p - q - r - s - t - u - v - w - x - y - z</b>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Il y a combien de lettres dans l'alphabet français ?</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; color:#1B5E20;">
+                Il y a 26 lettres.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Grammaire</button>
+        `;
+    }
+    else if (screen === 'fr_ex_gramm_voyelles') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 29 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Grammaire — Voyelles et Consonnes</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Combien y a-t-il de voyelles ?</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; color:#1B5E20; margin-bottom:12px;">
+                Il y a 6 voyelles : a - e - i - u - y - o.
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Combien de consonnes y a-t-il ?</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; color:#1B5E20;">
+                Il y a 20 consonnes.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Grammaire</button>
+        `;
+    }
+    else if (screen === 'fr_ex_gramm_separe_syllabes') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mercredi 07 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Grammaire — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Sépare les syllabes et donne ses nombres :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ papa = <b style="color:#1B5E20;">pa - pa</b> = 2 syllabes<br>
+                ✦ camarade = <b style="color:#1B5E20;">ca - ma - ra - de</b> = 4 syllabes<br>
+                ✦ village = <b style="color:#1B5E20;">vi - lla - ge</b> = 3 syllabes<br>
+                ✦ locomotive = <b style="color:#1B5E20;">lo - co - mo - ti - ve</b> = 5 syllabes<br>
+                ✦ promenade = <b style="color:#1B5E20;">pro - me - na - de</b> = 4 syllabes
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Grammaire</button>
+        `;
+    }
+    else if (screen === 'fr_ex_gramm_compte_syllabes') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 12 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Grammaire — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Compte et sépare les syllabes :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ chaloupe = <b style="color:#1B5E20;">cha - lou - pe</b> = 3 syllabes<br>
+                ✦ moule = <b style="color:#1B5E20;">mou - le</b> = 2 syllabes<br>
+                ✦ couture = <b style="color:#1B5E20;">cou - tu - re</b> = 3 syllabes<br>
+                ✦ chicane = <b style="color:#1B5E20;">chi - ca - ne</b> = 3 syllabes<br>
+                ✦ pyramide = <b style="color:#1B5E20;">py - ra - mi - de</b> = 4 syllabes
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Grammaire</button>
+        `;
+    }
+    else if (screen === 'fr_ex_gramm_animal_chose_pers') {
+        root.innerHTML = `
+            <div class="titre-lecon">✏️ Grammaire — Exercices</div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Complète par : animal — chose — personne :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.2;">
+                ✦ Le stylo est un nom d'<b style="color:#1B5E20;">une chose</b>.<br>
+                ✦ Marius est un nom d'<b style="color:#1B5E20;">une personne</b>.<br>
+                ✦ Le chat est un nom d'<b style="color:#1B5E20;">un animal</b>.<br>
+                ✦ La crevette est un nom d'<b style="color:#1B5E20;">un animal</b>.<br>
+                ✦ Le tableau est un nom d'<b style="color:#1B5E20;">une chose</b>.
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Grammaire</button>
+        `;
+    }
+    else if (screen === 'fr_ex_gramm_souligne_bonne_rep') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mercredi 28 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Grammaire — Souligne la bonne réponse</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:8px;">1) Soulignes la bonne réponse :</p>
+            <div class="cadre-contenu" style="font-size:15px; line-height:2.4;">
+                • Les noms propres commencent par :<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;- une lettre minuscule<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;- <b style="color:#15803D; text-decoration:underline;">une lettre majuscule</b> ✓<br><br>
+                • Maman est un nom qui appartient à :<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;- <b style="color:#15803D; text-decoration:underline;">tout le monde</b> ✓<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;- une seule personne
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-top:12px; margin-bottom:8px;">2) Entoures les intrus :</p>
+            <div style="background:#EFF6FF; border:2px dashed #3B82F6; border-radius:10px; padding:12px; font-size:15px; line-height:2.2; margin-bottom:8px;">
+                Paris — <span style="border:2px solid #DC2626; border-radius:8px; padding:2px 6px; color:#DC2626; font-weight:bold;">Marie</span> — Mandroseza — <span style="border:2px solid #DC2626; border-radius:8px; padding:2px 6px; color:#DC2626; font-weight:bold;">Madagascar</span> — Milou — Babi
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-top:12px; margin-bottom:8px;">3) Donnes 4 noms propres :</p>
+            <div style="background:#F0FDF4; border:2px dashed #16A34A; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; color:#166534;">
+                ✦ Bady &nbsp;|&nbsp; ✦ Paris &nbsp;|&nbsp; ✦ Diego &nbsp;|&nbsp; ✦ Tamatave
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir aux exercices de Grammaire</button>
+        `;
+    }
+
+    // --- MATHÉMATIQUES EXERCICES (MENU GLOBAL) ---
+    else if (screen === 'math_exercices') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Exercices de Mathématiques<br><span class="sous-titre-selection">Choisissez une branche</span></h1>
+                <button class="btn-rose" onclick="nav('math_ex_arith')">Arithmétique</button>
+                <button class="btn-rose" onclick="nav('math_ex_geom')">Géométrie</button>
+                <button class="btn-rose" onclick="nav('math_ex_metrique')">Système métrique</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+
+    // --- EXERCICES ARITHMÉTIQUE ---
+    else if (screen === 'math_ex_arith') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Exercices d'Arithmétique</h1>
+                <button class="btn-rose" onclick="nav('math_ex_comptage_10')">1- Compte de 0 à 10</button>
+                <button class="btn-rose" onclick="nav('math_ex_comptage_49')">1- Compte de 30 à 49</button>
+                <button class="btn-rose" onclick="nav('math_ex_ecris_lettres')">1- Écris en lettres</button>
+                <button class="btn-rose" onclick="nav('math_ex_comptage_75')">1- Compte de 55 à 75</button>
+                <button class="btn-rose" onclick="nav('math_ex_pose_effectue')">1- Pose et effectue</button>
+                <button class="btn-rose" onclick="nav('math_ex_arith_ecris')">1- Écris & Décompose</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'math_ex_comptage_10') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 21 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Arithmétiques — Exercices</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Compte de 1 en 1 de 0 à 10 :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; text-align:center; font-size:15px; margin-bottom:12px;">
+                0 - 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Complète les pointillés :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; text-align:center; font-size:15px; margin-bottom:12px;">
+                2 - 3 - 4 - 5 - 6 - 7 - <b style="color:red;">. . .</b> - 9 - 10
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">3) Dictée :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; color:#D81B60; font-weight:bold; text-align:center; font-size:15px;">
+                9 - 2 - 10 - 3 - 8
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-    else if (screen === 'fr_dictee_2') {
+    else if (screen === 'math_ex_comptage_49') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date">📅 09 Octobre 2026</span>
-                <div class="titre-lecon">✏️ Dictée préparée</div>
+                <span class="badge-date">📅 Mardi 29 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Arithmétique — Exercices</div>
             </div>
-            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
-                ✦ <b style="color:#0D47A1;">Je plante un pin.</b><br>
-                ✦ <b style="color:#0D47A1;">Elle adore la propreté.</b><br>
-                ✦ <b style="color:#0D47A1;">Tu portes un habit propre.</b><br>
-                ✦ <b style="color:#0D47A1;">Maman regarde le prix du riz.</b><br>
-                ✦ <b style="color:#0D47A1;">Il est sur l'île verte.</b>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Compte de 1 en 1 de 30 à 49 :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; line-height:2; text-align:center; font-size:15px; margin-bottom:12px;">
+                30 - 31 - 32 - 33 - 34 - 35 - 36 - 37 - 38<br>39 - 40 - 41 - 42 - 43 - 44 - 45 - 46 - 47<br>48 - 49
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Écrire en lettre :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; font-size:15px; margin-bottom:12px;">
+                1 = un &nbsp;|&nbsp; 5 = cinq<br>0 = zéro &nbsp;|&nbsp; 2 = deux
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">3) Dictée :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; color:#D81B60; font-weight:bold; text-align:center; font-size:15px;">
+                42 - 18 - 30 - 5 - 44 - 25 - 3
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-    else if (screen === 'fr_dictee_3') {
+    else if (screen === 'math_ex_ecris_lettres') {
         root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 16 Octobre 2026</span>
-                <div class="titre-lecon">✏️ Dictée préparée</div>
+            <div class="titre-lecon">✏️ Arithmétique — Écris en lettres</div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Écris en lettres :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; font-size:15px; line-height:2; margin-bottom:12px;">
+                10 = dix &nbsp;|&nbsp; 8 = huit<br>2 = deux &nbsp;|&nbsp; 6 = six<br>5 = cinq
             </div>
-            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
-                ✦ <b style="color:#0D47A1;">Il brosse seul ses dents.</b><br>
-                ✦ <b style="color:#0D47A1;">Nous gardons la salle propre.</b><br>
-                ✦ <b style="color:#0D47A1;">Vous avez une jolie fleur dans le jardin.</b><br>
-                ✦ <b style="color:#0D47A1;">Je suis dans la cour.</b>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Pose et effectue :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-family:monospace; font-size:16px; font-weight:bold; text-align:center;">
+                7 + 2 = 9 &nbsp;|&nbsp; 23 + 15 = 38<br>11 + 8 = 19 &nbsp;|&nbsp; 34 + 14 = 48
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-    else if (screen === 'fr_dictee_4') {
+    else if (screen === 'math_ex_comptage_75') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date">📅 22 Octobre 2026</span>
-                <div class="titre-lecon">✏️ Dictée préparée</div>
+                <span class="badge-date">📅 Lundi 12 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Arithmétique — Exercices</div>
             </div>
-            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
-                ✦ <b style="color:#0D47A1;">La propreté est bonne pour nous.</b><br>
-                ✦ <b style="color:#0D47A1;">Nous gardons la salle propre.</b><br>
-                ✦ <b style="color:#0D47A1;">Médor te mordra.</b><br>
-                ✦ <b style="color:#0D47A1;">Aline prépare le déjeuner.</b>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Compte de 1 en 1 de 55 à 75 :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; line-height:2; text-align:center; font-size:14px; margin-bottom:12px;">
+                55 - 56 - 57 - 58 - 59 - 60 - 61 - 62 - 63 - 64<br>65 - 66 - 67 - 68 - 69 - 70 - 71 - 72 - 73 - 74 - 75
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Décompose :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; color:#B71C1C; font-weight:bold; font-size:15px; margin-bottom:12px;">
+                24 = 2 d 4 u &nbsp;|&nbsp; 67 = 6 d 7 u<br>3 = 3 u &nbsp;|&nbsp; 15 = 1 d 5 u
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">3) Pose et effectue :</p>
+            <div style="background:#E1F5FE; border-radius:10px; padding:10px; font-family:monospace; font-size:16px; font-weight:bold; text-align:center;">
+                46 + 23 = 69 &nbsp;|&nbsp; 23 + 2 = 25<br>50 + 49 = 99 &nbsp;|&nbsp; 18 + 21 = 39
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-    else if (screen === 'fr_dictee_5') {
+    else if (screen === 'math_ex_pose_effectue') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date">📅 30 Octobre 2026</span>
-                <div class="titre-lecon">✏️ Dictée préparée</div>
+                <span class="badge-date">📅 Mercredi 21 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Arithmétique — Pose et Effectue (Avec retenue)</div>
             </div>
-            <div class="cadre-contenu" style="font-size:16px; line-height:2.4;">
-                ✦ <b style="color:#0D47A1;">Ils montrent la carte de l'étudiant.</b><br>
-                ✦ <b style="color:#0D47A1;">Une écolière surveille les élèves.</b><br>
-                ✦ <b style="color:#0D47A1;">Nous cultivons un are de riz.</b><br>
-                ✦ <b style="color:#0D47A1;">La clématite couvre la clôture du jardin.</b>
+            <div style="background:#E1F5FE; border-radius:10px; padding:12px; font-family:monospace; font-size:16px; font-weight:bold; text-align:center; margin-bottom:12px;">
+                54 + 16 = 70 &nbsp;|&nbsp; 28 + 35 = 63<br>46 + 26 = 72 &nbsp;|&nbsp; 12 + 5 = 17<br>36 + 28 = 64 &nbsp;|&nbsp; 33 + 15 = 48
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Décompose :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; color:#B71C1C; font-weight:bold; font-size:15px;">
+                57 = 5 d 7 u &nbsp;|&nbsp; 8 = 8 u &nbsp;|&nbsp; 62 = 6 d 2 u
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_ex_arith_ecris') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 26 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Arithmétique — Écris & Décompose</div>
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">1) Écris en lettres :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; line-height:2.2; margin-bottom:12px;">
+                ✦ <b>6</b> = six<br>✦ <b>8</b> = huit<br>✦ <b>0</b> = zéro<br>✦ <b>10</b> = dix
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">2) Compte de 1 en 1 de 87 à 107 :</p>
+            <div style="background:#F0F9FF; border:2px dashed #0284C7; border-radius:10px; padding:10px; font-size:13px; font-weight:bold; color:#0369A1; line-height:2; text-align:center; margin-bottom:12px;">
+                87 - 88 - 89 - 90 - 91 - 92 - 93 - 94 - 95 - 96 - 97 - 98 - 99 - 100 - 101 - 102 - 103 - 104 - 105 - 106 - 107.
+            </div>
+            <p style="font-weight:bold; color:#0D47A1; margin-bottom:6px;">3) Décompose :</p>
+            <div style="background:#fff; border:2px solid #80DEEA; border-radius:10px; padding:10px; font-size:15px; font-weight:bold; line-height:2.2;">
+                ✦ 85 = <b style="color:#D81B60;">8 d 5 u</b><br>
+                ✦ 92 = <b style="color:#D81B60;">9 d 2 u</b><br>
+                ✦ 5 = <b style="color:#D81B60;">5 u</b><br>
+                ✦ 113 = <b style="color:#D81B60;">1 c 1 d 3 u</b><br>
+                ✦ 7 = <b style="color:#D81B60;">7 u</b><br>
+                ✦ 119 = <b style="color:#D81B60;">1 c 1 d 9 u</b>
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
 
-    // --- MATHÉMATIQUES : LEÇONS ---
-    else if (screen === 'math_lecons') {
+    // --- EXERCICES GÉOMÉTRIE ---
+    else if (screen === 'math_ex_geom') {
         root.innerHTML = `
             <div class="cadre-menu">
-                <h1 class="titre-principal">Mathématiques — Leçons<br><span class="sous-titre-selection">Choisissez une branche</span></h1>
-                <button class="btn-rose" onclick="nav('math_arith')">Arithmétique</button>
-                <button class="btn-rose" onclick="nav('math_geom')">Géométrie</button>
-                <button class="btn-rose" onclick="nav('math_metrique')">Système métrique</button>
+                <h1 class="titre-principal">Exercices de Géométrie</h1>
+                <button class="btn-rose" onclick="nav('math_ex_geo_ligne_6cm')">1- Ligne droite 6 cm et 4 cm</button>
+                <button class="btn-rose" onclick="nav('math_ex_geo_souligne')">1- Souligne la bonne réponse & Tracés</button>
                 <button class="btn-retour" onclick="retour()">← Revenir</button>
             </div>
         `;
     }
-    else if (screen === 'math_arith') {
+    else if (screen === 'math_ex_geo_ligne_6cm') {
         root.innerHTML = `
-            <div class="cadre-menu">
-                <h1 class="titre-principal">Arithmétique<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
-                <button class="btn-rose" onclick="nav('math_comptage_10')">Comptage de 0 à 10</button>
-                <button class="btn-rose" onclick="nav('math_comptage_49')">Comptage de 0 à 49</button>
-                <button class="btn-rose" onclick="nav('math_add_sans')">Addition sans retenue</button>
-                <button class="btn-rose" onclick="nav('math_add_avec')">Addition avec retenue</button>
-                <button class="btn-rose" onclick="nav('math_comptage_119')">Comptage de 80 à 119</button>
-                <button class="btn-retour" onclick="retour()">← Revenir</button>
-            </div>
-        `;
-    }
-    else if (screen === 'math_comptage_10') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 17 Septembre 2026</span>
-                <div class="titre-lecon">✨ Comptage de 1 en 1 de 0 à 10 ✨</div>
-            </div>
-            <div style="background-color:#E8F5E9; border:2px dashed #4CAF50; border-radius:14px; padding:16px; font-size:17px; font-weight:bold; color:#2E7D32; text-align:center;">
-                0 ➔ 1 ➔ 2 ➔ 3 ➔ 4 ➔ 5 ➔ 6 ➔ 7 ➔ 8 ➔ 9 ➔ 10
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-    else if (screen === 'math_comptage_49') {
-        let ch49 = Array.from({length: 50}, (_, i) => i).join(' ➔ ');
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 28 Septembre 2026</span>
-                <div class="titre-lecon">✨ Comptage de 0 à 49 ✨</div>
-            </div>
-            <div style="background-color:#E8F5E9; border:2px dashed #4CAF50; border-radius:12px; padding:12px; line-height:2; font-size:13px; color:#2E7D32; text-align:center;">
-                ${ch49}
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-    else if (screen === 'math_add_sans') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 05 Octobre 2026</span>
-                <div class="titre-lecon">Addition Sans Retenue</div>
-            </div>
-            <div style="background-color:#E8F5E9; border-left:5px solid #2E7D32; padding:12px; border-radius:8px; font-size:14px; margin-bottom:12px;">
-                <b>Règle :</b> Le signe de l'addition est le <b style="color:#1B5E20; font-size:16px;">+</b>
-            </div>
-            <div style="background-color:#B3E5FC; border-radius:12px; padding:14px; font-family:monospace; font-size:17px; font-weight:bold; color:#1A237E; text-align:center;">
-                5 + 3 = 8 &nbsp;|&nbsp; 13 + 5 = 18 &nbsp;|&nbsp; 31 + 16 = 47
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-    else if (screen === 'math_add_avec') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 21 Octobre 2026</span>
-                <div class="titre-lecon">Addition Avec Retenue</div>
-            </div>
-            <div style="background-color:#E1BEE7; border-radius:12px; padding:14px; font-family:monospace; font-size:17px; font-weight:bold; color:#4A148C; text-align:center;">
-                26 + 37 = 63 &nbsp;|&nbsp; 15 + 26 = 41
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-    else if (screen === 'math_comptage_119') {
-        let ch119 = Array.from({length: 40}, (_, i) => i + 80).join(' - ');
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 26 Octobre 2026</span>
-                <div class="titre-lecon">✨ Comptage de 80 à 119 ✨</div>
-            </div>
-            <div style="background-color:#FFFFFF; border:3px solid #80DEEA; border-radius:14px; padding:12px; line-height:2; font-size:13px; font-weight:bold; text-align:center;">
-                ${ch119}
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-
-    // --- GÉOMÉTRIE & SYSTÈME MÉTRIQUE LEÇONS ---
-    else if (screen === 'math_geom') {
-        root.innerHTML = `
-            <div class="cadre-menu">
-                <h1 class="titre-principal">Géométrie</h1>
-                <button class="btn-rose" onclick="nav('math_geom_point')">Le point</button>
-                <button class="btn-rose" onclick="nav('math_geom_lignes')">Les 5 sortes de lignes</button>
-                <button class="btn-retour" onclick="retour()">← Revenir</button>
-            </div>
-        `;
-    }
-    else if (screen === 'math_geom_point') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 17 Septembre 2026</span>
-                <div class="titre-lecon">Le Point</div>
-            </div>
-            <div style="background-color:#E8F5E9; border-left:5px solid #1B5E20; padding:14px; border-radius:8px; font-size:15px; color:#1B5E20; margin-bottom:15px;">
-                ✦ Un point est une figure géométrique sans dimension (on ne peut pas mesurer).
-            </div>
-            <p style="text-align:center; font-size:26px; color:#D81B60; font-weight:bold;">● Point A</p>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-    else if (screen === 'math_geom_lignes') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 13 Octobre 2026</span>
-                <div class="titre-lecon">📖 Les 5 sortes de lignes</div>
-            </div>
+            <div class="titre-lecon">✏️ Géométrie — Lignes de 6 cm et 4 cm</div>
             <div class="cahier-seyes">
-                <div class="cahier-ligne-texte">1. Ligne droite horizontale</div>
-                <svg width="240" height="25"><line x1="10" y1="12" x2="220" y2="12" stroke="#0284C7" stroke-width="3"/></svg>
-                <div class="cahier-ligne-texte" style="margin-top:10px;">2. Ligne droite verticale</div>
-                <svg width="240" height="50"><line x1="50" y1="5" x2="50" y2="45" stroke="#0284C7" stroke-width="3"/></svg>
-                <div class="cahier-ligne-texte" style="margin-top:10px;">3. Ligne droite oblique</div>
-                <svg width="240" height="40"><line x1="10" y1="35" x2="160" y2="10" stroke="#0284C7" stroke-width="3"/></svg>
-                <div class="cahier-ligne-texte" style="margin-top:10px;">4. Ligne brisée</div>
-                <svg width="240" height="35"><polyline points="10,25 40,8 70,25 100,8 130,25" fill="none" stroke="#0284C7" stroke-width="3"/></svg>
-                <div class="cahier-ligne-texte" style="margin-top:10px;">5. Ligne courbe</div>
-                <svg width="240" height="35"><path d="M 10 20 Q 50 0 90 20 T 170 20" fill="none" stroke="#0284C7" stroke-width="3"/></svg>
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-    else if (screen === 'math_metrique') {
-        root.innerHTML = `
-            <div class="cadre-menu">
-                <h1 class="titre-principal">Système métrique</h1>
-                <button class="btn-rose" onclick="nav('math_met_regle')">Mesurer avec une règle</button>
-                <button class="btn-rose" onclick="nav('math_met_segment')">Mesurer un segment</button>
-                <button class="btn-retour" onclick="retour()">← Revenir</button>
-            </div>
-        `;
-    }
-    else if (screen === 'math_met_regle') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 23 Septembre 2026</span>
-                <div class="titre-lecon">📏 Mesurer avec une règle graduée</div>
-            </div>
-            <div class="cahier-seyes">
-                <div class="cahier-ligne-texte">1. Poser le 0 de la règle sur le point de départ.</div>
-                <div class="cahier-ligne-texte">2. Marquer la graduation voulue (ex: 4 cm) et relier.</div>
-                <svg width="280" height="80">
-                    <line x1="10" y1="40" x2="160" y2="40" stroke="#DC2626" stroke-width="3"/>
-                    <line x1="10" y1="30" x2="10" y2="50" stroke="#DC2626" stroke-width="3"/>
-                    <line x1="160" y1="30" x2="160" y2="50" stroke="#DC2626" stroke-width="3"/>
-                    <text x="75" y="65" font-size="14" font-weight="bold" fill="#DC2626">4 cm</text>
+                <div class="cahier-ligne-texte">1) Trace une ligne droite horizontale de 6 cm :</div>
+                <svg width="260" height="50">
+                    <line x1="20" y1="20" x2="188" y2="20" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="90" y="14" font-size="12" font-weight="bold" fill="#047857">6 cm</text>
+                </svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">2) Trace une ligne droite verticale de 4 cm :</div>
+                <svg width="200" height="140">
+                    <line x1="50" y1="10" x2="50" y2="122" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="60" y="70" font-size="12" font-weight="bold" fill="#047857">4 cm</text>
                 </svg>
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-    else if (screen === 'math_met_segment') {
+    else if (screen === 'math_ex_geo_souligne') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date">📅 08 Octobre 2026</span>
-                <div class="titre-lecon">📖 Mesurer un segment</div>
+                <span class="badge-date">📅 Mercredi 14 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Géométrie — Souligne la bonne réponse & Tracés</div>
             </div>
             <div class="cahier-seyes">
-                <div class="cahier-ligne-texte">✦ Le segment [AB] : début et fin limités :</div>
-                <svg width="260" height="40">
-                    <line x1="20" y1="20" x2="180" y2="20" stroke="#0F172A" stroke-width="3"/>
-                    <line x1="20" y1="10" x2="20" y2="30" stroke="#0F172A" stroke-width="3"/>
-                    <line x1="180" y1="10" x2="180" y2="30" stroke="#0F172A" stroke-width="3"/>
-                    <text x="6" y="24" font-size="13" font-weight="bold" fill="#DC2626">A</text>
-                    <text x="188" y="24" font-size="13" font-weight="bold" fill="#DC2626">B</text>
+                <div class="cahier-ligne-texte">1) Souligne la bonne réponse :</div>
+                <div style="font-size:15px; line-height:2.2; margin-bottom:15px;">
+                    - 2 sortes de lignes<br>
+                    - 6 sortes de lignes<br>
+                    - <b style="color:#16A34A; text-decoration:underline;">5 sortes de lignes</b> ✓ (Bonne réponse)
+                </div>
+                <div class="cahier-ligne-texte">2) Trace une ligne droite horizontale :</div>
+                <svg width="260" height="40"><line x1="20" y1="20" x2="188" y2="20" stroke="#0284C7" stroke-width="3"/><text x="60" y="14" font-size="12" font-weight="bold" fill="#047857">Ligne horizontale</text></svg>
+                <div class="cahier-ligne-texte" style="margin-top:12px;">3) Trace une ligne droite oblique :</div>
+                <svg width="260" height="60"><line x1="20" y1="50" x2="160" y2="15" stroke="#0284C7" stroke-width="3"/><text x="60" y="25" font-size="12" font-weight="bold" fill="#047857">Ligne oblique</text></svg>
+                <div class="cahier-ligne-texte" style="margin-top:12px;">4) Trace une ligne verticale :</div>
+                <svg width="200" height="130"><line x1="50" y1="10" x2="50" y2="122" stroke="#0284C7" stroke-width="3"/><text x="60" y="65" font-size="12" font-weight="bold" fill="#047857">Ligne verticale</text></svg>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+
+    // --- EXERCICES SYSTÈME MÉTRIQUE ---
+    else if (screen === 'math_ex_metrique') {
+        root.innerHTML = `
+            <div class="cadre-menu">
+                <h1 class="titre-principal">Exercices Système Métrique</h1>
+                <button class="btn-rose" onclick="nav('math_ex_met_ligne_horiz')">1- Lignes 5 cm, 8 cm, 3 cm</button>
+                <button class="btn-rose" onclick="nav('math_ex_met_ligne_7cm')">1- Lignes 7 cm, 4 cm, 5 cm</button>
+                <button class="btn-rose" onclick="nav('math_ex_met_segment_ab')">1- Segments [AB], [DE], [AC], [FH]</button>
+                <button class="btn-rose" onclick="nav('math_ex_met_demi_droite')">1- Tracé demi-droite & Segments</button>
+                <button class="btn-rose" onclick="nav('math_ex_met_ij_4cm')">1- [IJ]=4cm, [AC]=7cm, [EP]=5cm</button>
+                <button class="btn-rose" onclick="nav('math_ex_met_segment_ab_6cm')">1- [AB]=6cm, [BC)=4cm, [CD]=7cm</button>
+                <button class="btn-retour" onclick="retour()">← Revenir</button>
+            </div>
+        `;
+    }
+    else if (screen === 'math_ex_met_ligne_horiz') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Mardi 22 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Système Métrique — Lignes 5 cm, 8 cm, 3 cm</div>
+            </div>
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1) Ligne horizontale de 5 cm :</div>
+                <svg width="220" height="40"><line x1="20" y1="20" x2="160" y2="20" stroke="#1E3A8A" stroke-width="3"/><text x="75" y="14" font-size="12" font-weight="bold" fill="#047857">5 cm</text></svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">2) Ligne verticale de 8 cm :</div>
+                <svg width="180" height="240"><line x1="50" y1="10" x2="50" y2="234" stroke="#1E3A8A" stroke-width="3"/><text x="60" y="120" font-size="12" font-weight="bold" fill="#047857">8 cm</text></svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">3) Ligne oblique de 3 cm :</div>
+                <svg width="200" height="60"><line x1="20" y1="45" x2="104" y2="15" stroke="#1E3A8A" stroke-width="3"/><text x="45" y="25" font-size="12" font-weight="bold" fill="#047857">3 cm</text></svg>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_ex_met_ligne_7cm') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Lundi 29 Septembre 2026</span>
+                <div class="titre-lecon">✏️ Système Métrique — Lignes 7 cm, 4 cm, 5 cm</div>
+            </div>
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1) Ligne horizontale de 7 cm :</div>
+                <svg width="260" height="40"><line x1="20" y1="20" x2="216" y2="20" stroke="#0F172A" stroke-width="3"/><text x="100" y="14" font-size="12" font-weight="bold" fill="#047857">7 cm</text></svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">2) Ligne verticale de 4 cm :</div>
+                <svg width="180" height="140"><line x1="50" y1="10" x2="50" y2="122" stroke="#0F172A" stroke-width="3"/><text x="60" y="70" font-size="12" font-weight="bold" fill="#047857">4 cm</text></svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">3) Ligne oblique de 5 cm :</div>
+                <svg width="220" height="80"><line x1="20" y1="65" x2="160" y2="15" stroke="#0F172A" stroke-width="3"/><text x="75" y="32" font-size="12" font-weight="bold" fill="#047857">5 cm</text></svg>
+            </div>
+            <button class="btn-retour" onclick="retour()">← Revenir</button>
+        `;
+    }
+    else if (screen === 'math_ex_met_segment_ab') {
+        root.innerHTML = `
+            <div style="text-align:center;">
+                <span class="badge-date">📅 Jeudi 08 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Système Métrique — Segments [AB], [DE], [AC], [FH]</div>
+            </div>
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1) Trace les segments en ligne horizontale :</div>
+                <svg width="300" height="45">
+                    <line x1="30" y1="20" x2="170" y2="20" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="30" y1="10" x2="30" y2="30" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="170" y1="10" x2="170" y2="30" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="12" y="25" font-size="14" font-weight="bold" fill="#DC2626">A</text>
+                    <text x="180" y="25" font-size="14" font-weight="bold" fill="#DC2626">B</text>
+                    <text x="65" y="12" font-size="12" font-weight="bold" fill="#047857">[AB] = 5 cm</text>
+                </svg>
+                <svg width="300" height="45" style="margin-top:10px;">
+                    <line x1="30" y1="20" x2="226" y2="20" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="30" y1="10" x2="30" y2="30" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="226" y1="10" x2="226" y2="30" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="12" y="25" font-size="14" font-weight="bold" fill="#DC2626">D</text>
+                    <text x="236" y="25" font-size="14" font-weight="bold" fill="#DC2626">E</text>
+                    <text x="90" y="12" font-size="12" font-weight="bold" fill="#047857">[DE] = 7 cm</text>
+                </svg>
+                <svg width="300" height="45" style="margin-top:10px;">
+                    <line x1="30" y1="20" x2="114" y2="20" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="30" y1="10" x2="30" y2="30" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="114" y1="10" x2="114" y2="30" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="12" y="25" font-size="14" font-weight="bold" fill="#DC2626">A</text>
+                    <text x="124" y="25" font-size="14" font-weight="bold" fill="#DC2626">C</text>
+                    <text x="45" y="12" font-size="12" font-weight="bold" fill="#047857">[AC] = 3 cm</text>
                 </svg>
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-
-    // --- COURS (POSE ET EFFECTUE & DÉCOMPOSE) ---
-    else if (screen === 'screen_cours') {
-        root.innerHTML = `
-            <div class="cadre-menu">
-                <h1 class="titre-principal">Cours<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
-                <button class="btn-rose" onclick="nav('cours_pose')">1- Pose et effectue</button>
-                <button class="btn-rose" onclick="nav('cours_decompose')">1- Décompose</button>
-                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
-            </div>
-        `;
-    }
-    else if (screen === 'cours_pose') {
+    else if (screen === 'math_ex_met_demi_droite') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date">📅 07 Octobre 2026</span>
-                <div class="titre-lecon">📖 Arithmétique : 1- Pose et effectue</div>
+                <span class="badge-date">📅 Mardi 13 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Système Métrique — Tracé de Segments et Demi-droites</div>
             </div>
-            <table class="table-calc">
-                <tr>
-                    <td><span style="color:#0D47A1;">15 + 13 = 28</span><br><br>1 5<br>+ 1 3<br>-----<br>2 8</td>
-                    <td><span style="color:#0D47A1;">36 + 32 = 68</span><br><br>3 6<br>+ 3 2<br>-----<br>6 8</td>
-                    <td><span style="color:#0D47A1;">40 + 55 = 95</span><br><br>4 0<br>+ 5 5<br>-----<br>9 5</td>
-                </tr>
-            </table>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Cours</button>
-        `;
-    }
-    else if (screen === 'cours_decompose') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date">📅 14 Octobre 2026</span>
-                <div class="titre-lecon">📖 1- Décompose & Compose</div>
-            </div>
-            <div style="background:#FFFFFF; border:2px solid #80DEEA; border-radius:12px; padding:12px; font-size:14px; font-weight:bold; line-height:2;">
-                ✦ 24 = <b style="color:#D81B60;">2 d 4 u</b><br>
-                ✦ 15 = <b style="color:#D81B60;">1 d 5 u</b><br>
-                ✦ 56 = <b style="color:#D81B60;">5 d 6 u</b>
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir aux Cours</button>
-        `;
-    }
-
-    // --- ATELIER DESSIN ---
-    else if (screen === 'screen_dessin') {
-        root.innerHTML = `
-            <div class="cadre-menu">
-                <h1 class="titre-principal">Atelier Dessin<br><span class="sous-titre-selection">Choisissez un atelier</span></h1>
-                <button class="btn-rose" onclick="nav('dessin_carotte')">1- Carotte 🥕</button>
-                <button class="btn-rose" onclick="nav('dessin_cartable')">2- Cartable Mignon 🎒</button>
-                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
-            </div>
-        `;
-    }
-    else if (screen === 'dessin_carotte') {
-        root.innerHTML = `
-            <div style="text-align:center; margin-bottom:10px;">
-                <span class="badge-date" style="background:#EA580C;">🥕 Comment dessiner une Carotte</span>
-            </div>
-            <div class="dessin-wrapper">
-                <div class="ruban-cote"><span>✏️</span><span>⭐</span><span>🎨</span></div>
-                <div class="dessin-contenu">
-                    <div style="text-align:center; margin-bottom:12px;">
-                        <svg width="100" height="150" viewBox="0 0 100 150">
-                            <!-- Fanes -->
-                            <path d="M50 35 C40 10, 20 20, 48 35 C50 10, 60 10, 52 35 C65 15, 80 20, 54 35" fill="#22C55E" stroke="#15803D" stroke-width="2"/>
-                            <!-- Corps -->
-                            <path d="M35 35 Q50 32 65 35 Q60 120 50 145 Q40 120 35 35 Z" fill="#F97316" stroke="#C2410C" stroke-width="3"/>
-                            <!-- Traits -->
-                            <line x1="42" y1="55" x2="58" y2="55" stroke="#EA580C" stroke-width="2"/>
-                            <line x1="44" y1="80" x2="56" y2="80" stroke="#EA580C" stroke-width="2"/>
-                            <line x1="47" y1="105" x2="53" y2="105" stroke="#EA580C" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <p style="font-size:15px; font-weight:bold; color:#C2410C;">• Étape 1 : Tracer la forme de cône pointu vers le bas.</p>
-                    <p style="font-size:15px; font-weight:bold; color:#C2410C;">• Étape 2 : Ajouter des petits traits horizontaux.</p>
-                    <p style="font-size:15px; font-weight:bold; color:#15803D;">• Étape 3 : Dessiner les feuilles vertes au sommet.</p>
-                </div>
-                <div class="ruban-cote"><span>🌸</span><span>🥕</span><span>⭐</span></div>
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir au Dessin</button>
-        `;
-    }
-    else if (screen === 'dessin_cartable') {
-        root.innerHTML = `
-            <div style="text-align:center; margin-bottom:10px;">
-                <span class="badge-date" style="background:#FF2E93;">🎒 Dessiner un Cartable Mignon</span>
-            </div>
-            <div class="dessin-wrapper">
-                <div class="ruban-cote"><span>🎒</span><span>⭐</span></div>
-                <div class="dessin-contenu" style="border-color:#FF2E93;">
-                    <div style="text-align:center; margin-bottom:10px;">
-                        <svg width="120" height="130" viewBox="0 0 120 130">
-                            <!-- Poignée -->
-                            <path d="M45 25 Q60 10 75 25" fill="none" stroke="#DB2777" stroke-width="4"/>
-                            <!-- Corps sac -->
-                            <rect x="25" y="25" width="70" height="85" rx="14" fill="#F472B6" stroke="#BE185D" stroke-width="3"/>
-                            <!-- Poche avant -->
-                            <rect x="35" y="65" width="50" height="40" rx="8" fill="#FBCFE8" stroke="#BE185D" stroke-width="2"/>
-                            <!-- Yeux kawaii -->
-                            <circle cx="50" cy="80" r="3" fill="#111827"/>
-                            <circle cx="70" cy="80" r="3" fill="#111827"/>
-                            <path d="M57 88 Q60 92 63 88" fill="none" stroke="#111827" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <div style="font-size:14px; line-height:1.8;">
-                        <b>Step 1 :</b> Le grand rectangle aux coins arrondis.<br>
-                        <b>Step 2 :</b> Le rabat et la fermeture éclair.<br>
-                        <b>Step 3 :</b> Les poches sur les côtés et les bretelles.<br>
-                        <b>Step 4 :</b> Ajouter un visage mignon et colorier !
-                    </div>
-                </div>
-                <div class="ruban-cote"><span>💖</span><span>🎨</span></div>
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir au Dessin</button>
-        `;
-    }
-
-    // --- MÉTHODE BOSCHER ---
-    else if (screen === 'screen_boscher') {
-        let boutons = BOSCHER_LECONS.map(l => 
-            `<button class="btn-rose" onclick="afficherBoscher('${l.code}')">${l.label}</button>`
-        ).join('');
-        root.innerHTML = `
-            <div class="cadre-menu">
-                <h1 class="titre-principal">Méthode Boscher<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
-                <div class="scroll-vertical">${boutons}</div>
-                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
-            </div>
-        `;
-    }
-    else if (screen.startsWith('boscher_')) {
-        const code = screen.replace('boscher_', '');
-        const contenu = BOSCHER_CONTENUS[code] || '<p>Leçon en cours de préparation.</p>';
-        root.innerHTML = `
-            <div style="text-align:center;">
-                ${contenu}
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir à la Méthode Boscher</button>
-        `;
-    }
-
-    // --- LEÇONS DE CHOSE ---
-    else if (screen === 'screen_chose') {
-        root.innerHTML = `
-            <div class="cadre-menu">
-                <h1 class="titre-principal">Leçons de chose<br><span class="sous-titre-selection">Choisissez une leçon</span></h1>
-                <button class="btn-rose" onclick="nav('chose_nagent')">LES ANIMAUX QUI NAGENT</button>
-                <button class="btn-rose" onclick="nav('chose_volent')">LES ANIMAUX QUI VOLENT</button>
-                <button class="btn-rose" onclick="nav('chose_marchent')">LES ANIMAUX QUI MARCHENT</button>
-                <button class="btn-rose" onclick="nav('chose_rampent')">LES ANIMAUX QUI RAMPENT</button>
-                <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
-            </div>
-        `;
-    }
-    else if (screen === 'chose_nagent') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date" style="background:#0284C7;">📅 01 Octobre 2026</span>
-                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI NAGENT</div>
-            </div>
-            <div class="cadre-contenu">
-                ✦ <b>Définition :</b> Se déplacent dans l'eau grâce à leurs <b>nageoires</b> ou <b>pattes palmées</b>.<br>
-                ✦ <b>Exemples :</b> Le poisson, le dauphin, le requin, la baleine, le canard, le phoque.
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1) Demi-droite [CD[ = 3 cm horizontale :</div>
+                <svg width="220" height="40">
+                    <line x1="30" y1="20" x2="114" y2="20" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="30" y1="10" x2="30" y2="30" stroke="#1E3A8A" stroke-width="3"/>
+                    <polyline points="106,15 114,20 106,25" fill="none" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="12" y="25" font-size="14" font-weight="bold" fill="#DC2626">C</text>
+                    <text x="122" y="25" font-size="14" font-weight="bold" fill="#DC2626">D</text>
+                    <text x="50" y="12" font-size="12" font-weight="bold" fill="#047857">3 cm</text>
+                </svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">2) Segment [HD] = 6 cm vertical :</div>
+                <svg width="180" height="190">
+                    <line x1="50" y1="15" x2="50" y2="183" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="42" y1="15" x2="58" y2="15" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="42" y1="183" x2="58" y2="183" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="45" y="10" font-size="14" font-weight="bold" fill="#DC2626">H</text>
+                    <text x="45" y="198" font-size="14" font-weight="bold" fill="#DC2626">D</text>
+                    <text x="60" y="100" font-size="12" font-weight="bold" fill="#047857">6 cm</text>
+                </svg>
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-    else if (screen === 'chose_volent') {
+    else if (screen === 'math_ex_met_ij_4cm') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date" style="background:#0284C7;">📅 03 Octobre 2026</span>
-                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI VOLENT</div>
+                <span class="badge-date">📅 Vendredi 16 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Système Métrique — [IJ]=4cm, [AC]=7cm, [EP]=5cm</div>
             </div>
-            <div class="cadre-contenu">
-                ✦ <b>Définition :</b> Ont des <b>ailes</b> pour se déplacer dans l'air.<br>
-                ✦ <b>Exemples :</b> Le pigeon, l'aigle, l'hirondelle, le papillon, l'abeille, la chauve-souris.
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1) [IJ] = 4 cm en vertical :</div>
+                <svg width="180" height="140">
+                    <line x1="50" y1="15" x2="50" y2="127" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="42" y1="15" x2="58" y2="15" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="42" y1="127" x2="58" y2="127" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="47" y="10" font-size="14" font-weight="bold" fill="#DC2626">I</text>
+                    <text x="47" y="142" font-size="14" font-weight="bold" fill="#DC2626">J</text>
+                    <text x="60" y="70" font-size="12" font-weight="bold" fill="#047857">4 cm</text>
+                </svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">2) [AC] = 7 cm en oblique :</div>
+                <svg width="260" height="100">
+                    <line x1="30" y1="85" x2="226" y2="15" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="24" y1="80" x2="36" y2="90" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="220" y1="10" x2="232" y2="20" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="12" y="95" font-size="14" font-weight="bold" fill="#DC2626">A</text>
+                    <text x="234" y="15" font-size="14" font-weight="bold" fill="#DC2626">C</text>
+                    <text x="115" y="42" font-size="12" font-weight="bold" fill="#047857">7 cm</text>
+                </svg>
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
         `;
     }
-    else if (screen === 'chose_marchent') {
+    else if (screen === 'math_ex_met_segment_ab_6cm') {
         root.innerHTML = `
             <div style="text-align:center;">
-                <span class="badge-date" style="background:#0284C7;">📅 01 Octobre 2026</span>
-                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI MARCHENT</div>
+                <span class="badge-date">📅 Jeudi 29 Octobre 2026</span>
+                <div class="titre-lecon">✏️ Système Métrique — Segments et demi-droite</div>
             </div>
-            <div class="cadre-contenu">
-                ✦ <b>Définition :</b> Se déplacent sur la terre ferme à l'aide de leurs <b>pattes</b>.<br>
-                ✦ <b>Quadrupèdes (4 pattes) :</b> Le chat, le lion, le cheval, l'éléphant.<br>
-                ✦ <b>Bipèdes (2 pattes) :</b> L'autruche, la poule, le canard.
+            <div class="cahier-seyes">
+                <div class="cahier-ligne-texte">1) [AB] = 6 cm en oblique :</div>
+                <svg width="240" height="90">
+                    <line x1="30" y1="75" x2="198" y2="15" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="24" y1="70" x2="36" y2="80" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="192" y1="10" x2="204" y2="20" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="12" y="85" font-size="14" font-weight="bold" fill="#DC2626">B</text>
+                    <text x="206" y="15" font-size="14" font-weight="bold" fill="#DC2626">A</text>
+                    <text x="100" y="38" font-size="12" font-weight="bold" fill="#047857">6 cm</text>
+                </svg>
+                <div class="cahier-ligne-texte" style="margin-top:16px;">2) Demi-droite [BC) = 4 cm en vertical :</div>
+                <svg width="180" height="140">
+                    <line x1="50" y1="15" x2="50" y2="127" stroke="#1E3A8A" stroke-width="3"/>
+                    <line x1="42" y1="15" x2="58" y2="15" stroke="#1E3A8A" stroke-width="3"/>
+                    <polyline points="45,120 50,127 55,120" fill="none" stroke="#1E3A8A" stroke-width="3"/>
+                    <text x="47" y="10" font-size="14" font-weight="bold" fill="#DC2626">B</text>
+                    <text x="47" y="142" font-size="14" font-weight="bold" fill="#DC2626">C</text>
+                    <text x="60" y="70" font-size="12" font-weight="bold" fill="#047857">4 cm</text>
+                </svg>
             </div>
             <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-    else if (screen === 'chose_rampent') {
-        root.innerHTML = `
-            <div style="text-align:center;">
-                <span class="badge-date" style="background:#0284C7;">📅 10 Octobre 2026</span>
-                <div class="titre-lecon" style="color:#D90429;">LES ANIMAUX QUI RAMPENT</div>
-            </div>
-            <div class="cadre-contenu">
-                ✦ <b>Définition :</b> N'ont pas de pattes ou de très petites pattes, et utilisent leur <b>ventre</b> pour avancer (la reptation).<br>
-                ✦ <b>Exemples :</b> Le serpent, le ver de terre, l'escargot, le lézard, la limace.
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir</button>
-        `;
-    }
-
-    // --- ANGLAIS ---
-    else if (screen === 'screen_anglais') {
-        root.innerHTML = `
-            <h1 class="titre-principal">Anglais — 11ème</h1>
-            <div class="cadre-contenu" style="text-align:center;">
-                <p style="font-size:18px; font-weight:bold; color:#0D47A1;">🇬🇧 Welcome to English Class!</p>
-                <p style="margin-top:10px; font-size:15px; line-height:2;">
-                    ✦ <b>Greetings :</b> Good morning ! — Hello ! — Goodbye !<br>
-                    ✦ <b>Colors :</b> Red, Blue, Green, Yellow, Orange, Pink.<br>
-                    ✦ <b>Numbers :</b> One (1), Two (2), Three (3), Four (4), Five (5).
-                </p>
-            </div>
-            <button class="btn-retour" onclick="retour()">← Revenir au choix</button>
         `;
     }
 }
 
 // =============================================================================
-// GESTION DU CHOIX INITIAL ET DISPATCH
+// GESTION DU CHOIX ET INITIALISATION
 // =============================================================================
 function choisirMatiere(btn, code, nom) {
     document.querySelectorAll('.btn-bleu').forEach(b => b.classList.remove('selected'));
@@ -1489,13 +1740,15 @@ function afficherBoscher(code) {
     nav('boscher_' + code);
 }
 
-// Initialisation
+// Lancement au démarrage
 render('home');
 
-// Enregistrement du Service Worker pour 100% Hors-ligne
+// Enregistrement du Service Worker pour fonctionnement autonome hors-ligne
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
+        navigator.serviceWorker.register('./sw.js').catch((err) => {
+            console.log('SW échec :', err);
+        });
     });
 }
 </script>
