@@ -5,7 +5,7 @@
   "description": "Application éducative complète pour le programme scolaire de 11ème : Français, Mathématiques, Cours, Dessin, Méthode Boscher et Leçons de choses.",
   "lang": "fr",
   "dir": "ltr",
-  "start_url": "./",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -16,6 +16,13 @@
     "books",
     "kids"
   ],
+  "prefer_related_applications": false,
+  "serviceworker": {
+    "src": "./sw.js",
+    "scope": "./",
+    "type": "classic",
+    "update_via_cache": "none"
+  },
   "icons": [
     {
       "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
@@ -42,14 +49,14 @@
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Écran d'accueil du programme scolaire en 11ème"
+      "label": "Programme scolaire 11ème sur Mobile"
     },
     {
       "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f392.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Interface du programme d'apprentissage"
+      "label": "Programme scolaire 11ème sur Tablette et Bureau"
     }
   ]
 }
